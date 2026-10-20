@@ -25,10 +25,15 @@ export const addDays = (iso: string, n: number): string => {
   return isoOf(d);
 };
 
-/** Whole months back from the date, then the fraction as ~30-day steps (matches the prototype). */
+/**
+ * Whole months back from the date, then the fraction as ~30-day steps (as in the prototype).
+ * Month steps clamp to the month's last day (Jan 31 − 2 months = Nov 30), matching Postgres and setup_wedding().
+ */
 export const minusMonths = (iso: string, m: number): string => {
-  const d = parseD(iso);
-  d.setMonth(d.getMonth() - Math.floor(m));
+  const src = parseD(iso);
+  const d = new Date(src.getFullYear(), src.getMonth() - Math.floor(m), 1);
+  const lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+  d.setDate(Math.min(src.getDate(), lastDay));
   if (m % 1) d.setDate(d.getDate() - Math.round((m % 1) * 30));
   return isoOf(d);
 };

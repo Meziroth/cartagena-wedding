@@ -15,6 +15,10 @@ describe('dates', () => {
     expect(minusMonths('2028-01-22', 0.25)).toBe('2028-01-14');
     expect(minusMonths('2028-01-22', 14.5)).toBe('2026-11-07');
   });
+  it('clamps month steps to the last day of the month, like Postgres', () => {
+    expect(minusMonths('2028-01-31', 2)).toBe('2027-11-30');
+    expect(minusMonths('2028-02-29', 12)).toBe('2027-02-28');
+  });
 });
 
 describe('money', () => {

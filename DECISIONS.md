@@ -7,10 +7,26 @@ Choices made without asking, per CLAUDE_CODE_PROMPT.md. Newest at the bottom.
 - **Hash routes are `#/budget`, not the prototype's `#budget`.** That's what React Router's `HashRouter` produces. Unknown routes show a "Page not found" screen with a link home.
 - **Data source.** `src/data/source.ts` defines a `DataSource` interface. With no `VITE_SUPABASE_URL` (or with `VITE_DATA_SOURCE=mock`), the app uses the in-memory example data from `src/mock/mockData.ts`, signed in as Nick. Edits last until a reload. Supabase plugs in behind the same interface in Phases 2–3.
 - **Mock vs. seed.** `src/lib/seedData.ts` holds only what a real wedding starts with (events, budget categories, the 35-task template, six decision notes). `mockData.ts` adds the prototype's example vendors, payments, guests and ideas, which are never seeded into Supabase.
-- **Budget categories have a nullable `key`** (`venue`, `catering`, `buffer`, …) so rules can find seeded categories (the buffer, catering for per-guest cost, florals for the flowers tip) without relying on names. Add it to the `budget_categories` table in `0001_init.sql`.
+- **Budget categories have a nullable `key`** (`venue`, `catering`, `buffer`, …) so rules can find seeded categories (the buffer, catering for per-guest cost, florals for the flowers tip) without relying on names. It is a column on `budget_categories` (unique per wedding).
 - **"Viewing as" became an account menu**: an avatar showing the signed-in name, email and role, with Sign out. The currency toggle stays in the top bar and is remembered per user under `localStorage['nt-currency:<user_id>']`.
 - **The language switch is hidden** (it sits in the account menu) and appears automatically once `src/locales/es.json` has any keys.
 - **"Both love it"** means every member with role `owner` has hearted the idea, not a hard-coded pair of names.
 - **Placeholder screens.** Checklist, Budget, Vendors, Inspiration, Guests, Notes and Details show the prototype's heading and intro plus a one-line summary of their data until they're built in Phase 4–5. Home is fully ported except the suggestions card (Phase 6).
 - **Additions to the prototype's styles**: a skip-to-content link, `body{margin:0}` (the prototype left the browser's 8px default), and styles for the account menu and the loading and error screens. These are in `shell.css` and `base.css`.
 - **Playwright browsers aren't installed yet.** Run `npx playwright install chromium` before the Phase 7 suite. Phase 1 was checked by hand at 1280×800 and 390×844, using installed Edge.
+
+## Phase 2: schema, RLS, storage, seed
+
+- **Seeding is a function, not `seed.sql`.** `setup_wedding()` (in `0002_setup_wedding.sql`) is the first-run "Set up our wedding" step. Whoever calls it first becomes the first owner, and the wedding starts with the prototype's events, categories, 35 tasks and 6 decision notes. The app holds one wedding, so the function refuses once a wedding exists, and everyone else joins by invitation (Phase 3). A static `seed.sql` couldn't work, because it can't know the owner's user id.
+- **One source for seed data.** `0002_setup_wedding.sql` is generated from `src/lib/seedData.ts` by `npm run gen:seed`. A test fails if the two drift apart.
+- **Month math matches Postgres.** `minusMonths` now clamps to the end of the month (Jan 31 − 2 months = Nov 30), like Postgres. The prototype rolled over to Dec 1 instead. This changes no seeded date, because Jan 22 has no overflow.
+- **RLS goes slightly beyond the brief:**
+  - Only owners can heart ideas. The planner has no heart in the UI, so the database enforces it too.
+  - `done_by` and `done_at` on tasks, `paid_at` on payments, and `created_by` on notes and ideas are set by triggers from the session, not trusted from the client.
+  - The buffer category can't be deleted, and a wedding can't lose its last owner. Both are enforced by triggers. These two triggers are `security definer` so they see the real rows: running as the user, an owner who had just removed themselves mid-statement could no longer see the wedding, and the guard silently passed. The tests caught this.
+  - References between rows use composite foreign keys that include `wedding_id`, so a category can't point at another wedding's event (and likewise for payments and vendors).
+  - Signed-out visitors (`anon`) have every table privilege revoked, not just blocked by RLS.
+- **Storage:** two private buckets, `inspiration` (JPEG, PNG or WebP up to 10 MB) and `contracts` (PDF up to 20 MB). Paths look like `{wedding_id}/{uuid}.{ext}`, and policies check membership against the first path segment. A malformed segment counts as "no wedding" instead of causing an error.
+- **Realtime:** every table is in `supabase_realtime` with `replica identity full`, so delete events carry `wedding_id`.
+- **No date-window constraint in the database.** The Dec 2027–Feb 2028 limit is a UI rule (the date picker). The database accepts any date, so plans can change without a migration.
+- **The RLS tests are a plain SQL script** (`supabase/tests/rls.sql`), not pgTAP. `npm test` runs it in PGlite, which is real Postgres compiled to WebAssembly, so no Docker or Supabase CLI is needed. A small stand-in (`supabase/tests/support/supabase-shim.sql`) provides the `auth` and `storage` schemas and the roles. The same script can be pasted into the Supabase SQL editor on an empty project to check the live database. It rolls back at the end.
