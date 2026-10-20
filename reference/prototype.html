@@ -1,0 +1,1027 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<title>Nick &amp; Thuraya · Cartagena</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: sidebar app shell on desktop, top bar + bottom tab bar on phones. Walls of limewashed plaster, bougainvillea accents, cement-tile motif. */
+:root{
+  --plaster:#F6EEE3;      /* page ground: limewash */
+  --surface:#FFFBF6;      /* cards */
+  --sunk:#EFE3D4;         /* inputs, tracks */
+  --ink:#2A1D18;          /* text */
+  --muted:#6E5A50;        /* secondary text */
+  --line:#E2D3C2;         /* hairlines */
+  --terracotta:#A94B27;   /* primary action */
+  --terracotta-ink:#FFF7F0;
+  --bougain:#B8226A;      /* highlight / hearts */
+  --sage:#5F7350;         /* done / good */
+  --ochre:#B07B12;        /* warnings, candle light */
+  --alert:#B3261E;
+  --tile:#A94B27;
+  --shadow:0 1px 2px rgb(42 29 24 / .06), 0 6px 20px rgb(42 29 24 / .06);
+  --display:"Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --body:"Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --plaster:#1B1412; --surface:#251C19; --sunk:#30251F; --ink:#F4E9DD; --muted:#BCA898; --line:#3D2F28;
+  --terracotta:#E0784F; --terracotta-ink:#1B1412; --bougain:#EE6AA6; --sage:#A5B98F; --ochre:#E6B95A; --alert:#F08A80; --tile:#E0784F;
+  --shadow:0 1px 2px rgb(0 0 0 / .3), 0 8px 24px rgb(0 0 0 / .25); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --plaster:#1B1412; --surface:#251C19; --sunk:#30251F; --ink:#F4E9DD; --muted:#BCA898; --line:#3D2F28;
+  --terracotta:#E0784F; --terracotta-ink:#1B1412; --bougain:#EE6AA6; --sage:#A5B98F; --ochre:#E6B95A; --alert:#F08A80; --tile:#E0784F;
+  --shadow:0 1px 2px rgb(0 0 0 / .3), 0 8px 24px rgb(0 0 0 / .25); color-scheme:dark}
+
+html,body{height:100%}
+body{background:var(--plaster);color:var(--ink);font:16px/1.5 var(--body);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--plaster)}
+*{box-sizing:border-box}
+h1,h2,h3{font-family:var(--display);font-weight:500;text-wrap:balance;margin:0;line-height:1.15}
+h2{font-size:clamp(1.6rem,1.2rem + 1.5vw,2.2rem)}
+h3{font-size:1.2rem}
+p{margin:0}
+a{color:var(--terracotta)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--bougain);outline-offset:2px;border-radius:6px}
+.num{font-variant-numeric:tabular-nums}
+.label{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.muted{color:var(--muted)}
+[hidden]{display:none!important}
+#view:focus{outline:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* shell */
+.app{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100%}
+.side{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:20px;padding:28px 18px 20px max(18px,env(safe-area-inset-left,0px));border-right:1px solid var(--line);background:var(--surface);overflow:auto}
+.mono{font-family:var(--display);font-style:italic;font-size:1.9rem;line-height:1}
+.mono small{display:block;font-family:var(--body);font-style:normal;font-size:.8rem;color:var(--muted);margin-top:8px;letter-spacing:.02em}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;text-decoration:none;color:var(--ink);font-weight:500;min-height:44px}
+.nav a:hover{background:var(--sunk)}
+.nav a[aria-current="page"]{background:var(--sunk);color:var(--terracotta);font-weight:700}
+.nav svg{flex:none}
+.side-foot{margin-top:auto;display:flex;flex-direction:column;gap:12px;font-size:.85rem}
+main{min-width:0;padding-block:0 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;align-items:center;gap:12px;justify-content:flex-end;padding:12px 0;background:var(--plaster);border-bottom:1px solid transparent}
+.topbar .mono{font-size:1.35rem;margin-right:auto;display:none}
+.seg{display:inline-flex;background:var(--sunk);border-radius:999px;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;padding:6px 12px;border-radius:999px;font-size:.85rem;font-weight:600;color:var(--muted);cursor:pointer;min-height:36px}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.viewer{display:flex;align-items:center;gap:8px;font-size:.85rem;white-space:nowrap}
+.viewer select{background:var(--sunk);border:0;border-radius:999px;padding:8px 12px;font-weight:600;min-height:40px}
+.tabbar{display:none}
+.more-sheet{position:fixed;left:0;right:0;bottom:calc(64px + env(safe-area-inset-bottom,0px));z-index:41;background:var(--surface);border-top:1px solid var(--line);padding:12px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));display:grid;grid-template-columns:1fr 1fr;gap:8px;box-shadow:0 -10px 30px rgb(0 0 0 / .12)}
+.more-sheet a{display:flex;gap:10px;align-items:center;padding:12px;border-radius:8px;background:var(--sunk);text-decoration:none;color:var(--ink);font-weight:600;min-height:48px}
+
+@media (max-width:860px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .side{display:none}
+  .topbar .mono{display:block}
+  .topbar .viewer span{display:none}
+  main{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+  .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);padding:6px max(6px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(6px,env(safe-area-inset-left,0px))}
+  .tabbar a,.tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;font-size:.7rem;font-weight:600;color:var(--muted);text-decoration:none;background:none;border:0;min-height:52px;cursor:pointer}
+  .tabbar [aria-current="page"]{color:var(--terracotta)}
+}
+
+/* building blocks */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);min-width:0}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.stack{display:flex;flex-direction:column;gap:12px}
+.between{justify-content:space-between}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:9px 16px;border-radius:999px;font-weight:600;font-size:.9rem;cursor:pointer;min-height:42px;text-decoration:none}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--terracotta);border-color:var(--terracotta);color:var(--terracotta-ink)}
+.btn.small{padding:6px 12px;min-height:36px;font-size:.82rem}
+.btn.ghost{border-color:transparent;background:transparent}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.icon-btn{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:999px;border:1px solid transparent;background:transparent;color:var(--muted);cursor:pointer}
+.icon-btn:hover{background:var(--sunk);color:var(--ink)}
+.icon-btn:disabled{opacity:.4;cursor:not-allowed}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:999px;font-size:.75rem;font-weight:700;background:var(--sunk);color:var(--muted);white-space:nowrap}
+.pill.sage{color:var(--sage)} .pill.ochre{color:var(--ochre)} .pill.alert{color:var(--alert)} .pill.pink{color:var(--bougain)} .pill.terra{color:var(--terracotta)}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label{font-size:.82rem;font-weight:600;color:var(--muted)}
+input[type=text],input[type=number],input[type=date],input[type=url],input[type=email],select,textarea{background:var(--sunk);border:1px solid transparent;border-radius:8px;padding:10px 12px;min-height:44px;width:100%;min-width:0}
+input:focus,select:focus,textarea:focus{border-color:var(--terracotta);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--terracotta) 25%,transparent)}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.formgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));align-items:end}
+details.add>summary{list-style:none;cursor:pointer;display:inline-flex}
+details.add>summary::-webkit-details-marker{display:none}
+details.add[open]>summary{margin-bottom:14px}
+.bar{height:8px;background:var(--sunk);border-radius:999px;overflow:hidden;position:relative}
+.bar i{position:absolute;inset:0 auto 0 0;background:var(--terracotta);border-radius:999px}
+.bar i.paid{background:var(--sage)}
+.empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:var(--r)}
+.banner{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:12px 16px;border-radius:var(--r);background:var(--sunk);font-size:.9rem}
+.banner.view{border-left:4px solid var(--ochre)}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;padding-top:8px}
+.sec-head p{max-width:60ch}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-radius:14px;background:var(--surface);border:1px solid var(--line);padding:clamp(24px,4vw,44px);box-shadow:var(--shadow)}
+.hero svg.tiles{position:absolute;inset:0;width:100%;height:100%;opacity:.09;pointer-events:none}
+.hero svg.tiles .t{fill:var(--tile)}
+.hero-inner{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end}
+.names{font-family:var(--display);font-style:italic;font-weight:400;font-size:clamp(2.6rem,1.6rem + 4.5vw,4.8rem);line-height:1;letter-spacing:-.01em}
+.names .amp{color:var(--bougain);font-style:normal}
+.where{margin-top:14px;display:flex;gap:8px 16px;flex-wrap:wrap;color:var(--muted)}
+.count{text-align:right}
+.count b{display:block;font-family:var(--display);font-size:clamp(3rem,2rem + 4vw,5rem);line-height:.9;font-weight:500;color:var(--terracotta)}
+@media (max-width:560px){.hero-inner{grid-template-columns:1fr}.count{text-align:left}}
+
+.stat b{display:block;font-size:1.7rem;font-weight:700;letter-spacing:-.01em}
+.stat .bar{margin-top:10px}
+
+/* suggestions */
+.sugg{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:start;padding:14px 0;border-top:1px solid var(--line)}
+.sugg:first-child{border-top:0;padding-top:0}
+.sugg .dot{width:34px;height:34px;border-radius:999px;display:grid;place-items:center;background:var(--sunk);color:var(--ochre)}
+.sugg[data-tone=alert] .dot{color:var(--alert)}
+.sugg[data-tone=tip] .dot{color:var(--sage)}
+.sugg h4{margin:0 0 4px;font-size:.98rem}
+.sugg p{font-size:.9rem;color:var(--muted);max-width:65ch}
+.sugg .row{margin-top:8px}
+
+/* tasks */
+.task{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.task:first-child{border-top:0}
+.check{appearance:none;width:24px;height:24px;border:2px solid var(--muted);border-radius:7px;display:grid;place-items:center;cursor:pointer;margin:0;background:var(--surface)}
+.check:checked{background:var(--sage);border-color:var(--sage)}
+.check:checked::after{content:"";width:6px;height:11px;border:solid var(--surface);border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.task.done .t-title{text-decoration:line-through;color:var(--muted)}
+.t-meta{display:flex;gap:6px 10px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);margin-top:2px}
+.month{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:0 0 4px}
+.month h3{font-size:1.15rem}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;font-size:.85rem;font-weight:600;cursor:pointer;min-height:38px;color:var(--ink);display:inline-flex;align-items:center;gap:6px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--plaster);border-color:var(--ink)}
+.chip:disabled{opacity:.5;cursor:not-allowed}
+
+/* budget */
+.flex-ctl{display:grid;gap:16px}
+input[type=range]{width:100%;accent-color:var(--terracotta);min-height:32px}
+.total-big{font-family:var(--display);font-size:clamp(2.2rem,1.6rem + 2.4vw,3.2rem);font-weight:500;line-height:1}
+.cat{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(110px,150px) auto;gap:10px 14px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.cat:first-of-type{border-top:0}
+.cat .nm{font-weight:600}
+.cat .sub{font-size:.8rem;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;margin-top:2px}
+.cat .bar{grid-column:2 / -1;height:6px}
+.cat input{text-align:right}
+.lock[aria-pressed="true"]{color:var(--bougain);background:color-mix(in srgb,var(--bougain) 12%,transparent)}
+.cat.off{opacity:.5}
+.status-line{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 14px;border-radius:8px;background:var(--sunk);font-weight:600}
+.status-line.over{color:var(--alert)} .status-line.ok{color:var(--sage)}
+@media (max-width:560px){.cat{grid-template-columns:auto minmax(0,1fr) auto}.cat .amt{grid-column:2 / 3}.cat .del{grid-row:1;grid-column:3}}
+.pay{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.pay:first-child{border-top:0}
+
+/* vendors */
+.vendor h3{font-family:var(--body);font-size:1.02rem;font-weight:700}
+.vendor dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;margin:12px 0 0;font-size:.9rem}
+.vendor dt{color:var(--muted)} .vendor dd{margin:0;overflow-wrap:anywhere}
+.steps{display:flex;gap:4px;margin-top:12px}
+.steps i{flex:1;height:5px;border-radius:999px;background:var(--sunk)}
+.steps i.on{background:var(--terracotta)}
+
+/* inspiration */
+.board{columns:3 260px;column-gap:16px}
+.idea{break-inside:avoid;margin:0 0 16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.idea .img{aspect-ratio:4/5;max-width:100%;background-size:cover;background-position:center;position:relative}
+.idea .img.tall{aspect-ratio:3/4}
+.idea .img.wide{aspect-ratio:4/3}
+.idea img{display:block;width:100%;height:auto}
+.idea .cap{padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.idea .cap b{font-weight:600;line-height:1.3}
+.idea .link-art{aspect-ratio:16/9;display:grid;place-items:center;background:var(--sunk);color:var(--muted);gap:6px;text-align:center;padding:16px}
+.hearts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.heart{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 10px;font-size:.78rem;font-weight:600;cursor:pointer;color:var(--muted);min-height:34px}
+.heart[aria-pressed="true"]{color:var(--bougain);border-color:color-mix(in srgb,var(--bougain) 50%,transparent);background:color-mix(in srgb,var(--bougain) 10%,transparent)}
+.heart[aria-pressed="true"] svg path{fill:currentColor}
+.heart:disabled{cursor:default}
+.drop{border:2px dashed var(--line);border-radius:var(--r);padding:20px;text-align:center;color:var(--muted)}
+.drop.over{border-color:var(--bougain);color:var(--bougain)}
+/* sample artwork (stand-ins until you add your own photos) */
+.art-lights{background:radial-gradient(circle,#FFD98A 0 1.6px,rgb(255 217 138 / .35) 2.4px,transparent 4px) 0 0/26px 22px,radial-gradient(ellipse at 50% 110%,#8A4B35,transparent 60%),linear-gradient(#1E1A33,#4A2F38)}
+.art-bougain{background:radial-gradient(circle at 18% 22%,#D6337F 0 13%,transparent 14%),radial-gradient(circle at 34% 12%,#EA5B9C 0 11%,transparent 12%),radial-gradient(circle at 12% 44%,#C2266F 0 12%,transparent 13%),radial-gradient(circle at 30% 36%,#F07AAE 0 9%,transparent 10%),radial-gradient(circle at 52% 8%,#D6337F 0 9%,transparent 10%),linear-gradient(90deg,transparent 62%,#6E3A22 62% 64%,transparent 64%),linear-gradient(#E9B58F,#D88A5E)}
+.art-table{background:radial-gradient(circle,#FFCF6B 0 2px,rgb(255 207 107 / .3) 4px,transparent 7px) 0 58%/34px 20px repeat-x,linear-gradient(#2E211C 0 52%,#EFE0C4 52% 66%,#5A7A4E 66% 70%,#2E211C 70%)}
+.art-helic{background:radial-gradient(ellipse at 30% 40%,#E2522B 0 12%,transparent 13%),radial-gradient(ellipse at 60% 30%,#F2A33A 0 10%,transparent 11%),radial-gradient(ellipse at 48% 58%,#F4F0E8 0 9%,transparent 10%),radial-gradient(ellipse at 70% 60%,#B8226A 0 9%,transparent 10%),repeating-linear-gradient(120deg,#3F6B45 0 10px,#2F5236 10px 20px)}
+.art-doors{background:linear-gradient(#0000 0 12%,rgb(0 0 0 / .18) 12% 14%,#0000 14%),linear-gradient(90deg,#2F7D8C 0 25%,#F2C14E 25% 50%,#C2266F 50% 75%,#E07A52 75%)}
+.art-palette{background:linear-gradient(90deg,#A94B27 0 20%,#D6337F 20% 40%,#F4E7D7 40% 60%,#7D8F69 60% 80%,#E6B95A 80%)}
+.art-tag{position:absolute;left:10px;top:10px;background:rgb(0 0 0 / .55);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px}
+
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem}
+.tbl th{text-align:left;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:8px 10px;border-bottom:1px solid var(--line)}
+.tbl td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl select{min-height:38px;padding:6px 8px}
+.scroll{overflow-x:auto}
+@media (max-width:640px){
+  .tbl thead{display:none}
+  .tbl tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .tbl td{border:0;padding:0}
+  .tbl td.g-name{grid-column:1 / 2;font-weight:600}
+  .tbl td.g-del{grid-column:2;grid-row:1}
+  .tbl td.g-wide{grid-column:1 / -1}
+}
+
+/* notes */
+.note{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;padding:14px 0;border-top:1px solid var(--line)}
+.note:first-child{border-top:0}
+.note .when{font-size:.8rem;color:var(--muted)}
+
+/* modal + toast */
+dialog{border:0;border-radius:14px;padding:0;background:var(--surface);color:var(--ink);width:min(680px,calc(100vw - 32px));box-shadow:0 20px 60px rgb(0 0 0 / .3)}
+dialog::backdrop{background:rgb(27 20 18 / .5)}
+.modal-body{padding:22px;display:flex;flex-direction:column;gap:14px}
+.modal-body textarea{min-height:240px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;resize:vertical}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:60;background:var(--ink);color:var(--plaster);padding:10px 18px;border-radius:999px;font-weight:600;font-size:.9rem;box-shadow:var(--shadow);max-width:calc(100vw - 32px)}
+@media (min-width:861px){.toast{bottom:28px}}
+@media (prefers-reduced-motion:no-preference){
+  .idea,.card{transition:transform .2s ease,box-shadow .2s ease}
+  .idea:hover{transform:translateY(-2px)}
+  .bar i{transition:width .35s ease}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="tilePat" width="56" height="56" patternUnits="userSpaceOnUse">
+      <g class="t">
+        <circle cx="28" cy="17" r="9"/><circle cx="39" cy="28" r="9"/><circle cx="28" cy="39" r="9"/><circle cx="17" cy="28" r="9"/>
+        <path d="M0 0h8a8 8 0 0 1-8 8zM56 0v8a8 8 0 0 1-8-8zM0 56v-8a8 8 0 0 1 8 8zM56 56h-8a8 8 0 0 1 8-8z"/>
+      </g>
+      <circle cx="28" cy="28" r="4.5" fill="var(--surface)"/>
+    </pattern>
+  </defs>
+</svg>
+
+<div class="app">
+  <aside class="side" aria-label="Wedding planner">
+    <div class="mono">Nick <span style="color:var(--bougain);font-style:normal">&amp;</span> Thuraya<small id="sideDate">Cartagena, Colombia</small></div>
+    <nav class="nav" id="sideNav" aria-label="Sections"></nav>
+    <div class="side-foot">
+      <p class="muted">Prototype. Entries save in this browser only. The GitHub version syncs between you, Thuraya and your planner.</p>
+    </div>
+  </aside>
+
+  <main id="main">
+    <div class="topbar">
+      <div class="mono" aria-hidden="true">N <span style="color:var(--bougain);font-style:normal">&amp;</span> T</div>
+      <div class="seg" role="group" aria-label="Currency" id="curSeg">
+        <button type="button" data-act="cur" data-v="USD">USD</button>
+        <button type="button" data-act="cur" data-v="COP">COP</button>
+      </div>
+      <label class="viewer"><span class="muted">Viewing as</span>
+        <select id="viewerSel" data-chg="viewer" aria-label="Viewing as">
+          <option>Nick</option><option>Thuraya</option><option value="Planner">Planner</option>
+        </select>
+      </label>
+    </div>
+    <div class="wrap" id="view" tabindex="-1"></div>
+  </main>
+</div>
+
+<nav class="tabbar" id="tabbar" aria-label="Sections"></nav>
+<div class="more-sheet" id="moreSheet" hidden></div>
+
+<dialog id="modal" aria-labelledby="modalTitle">
+  <div class="modal-body">
+    <div class="row between"><h3 id="modalTitle">Export</h3><button class="icon-btn" data-act="closeModal" aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <p class="muted" id="modalNote"></p>
+    <label class="sr" for="modalText">Export contents</label>
+    <textarea id="modalText" readonly></textarea>
+    <div class="row"><button class="btn primary" data-act="copyModal">Copy to clipboard</button><span class="muted" style="font-size:.85rem">The GitHub version downloads this as a file.</span></div>
+  </div>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(() => {
+/* ---------- icons ---------- */
+const P = {
+  home:'M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z',
+  checklist:'M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9',
+  budget:'M3 7a2 2 0 0 1 2-2h13v4M3 7v10a2 2 0 0 0 2 2h16V9H5a2 2 0 0 1-2-2zM16.5 14h.01',
+  vendors:'M4 9l1.5-5h13L20 9M4 9h16v11H4zM9.5 20v-6h5v6',
+  inspiration:'M4 5h16v14H4zM4 16l5-5 4 4 3-3 4 4M15.5 9.5h.01',
+  guests:'M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM22 20v-2a4 4 0 0 0-3-3.9M16 2.1a4 4 0 0 1 0 7.8',
+  notes:'M5 3h10l4 4v14H5zM14 3v5h5M8 13h8M8 17h5',
+  details:'M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1M15 4v4M9 10v4M17 16v4',
+  heart:'M12 20s-7-4.4-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.6-9 9-9 9z',
+  lock:'M6 11h12v9H6zM8 11V8a4 4 0 0 1 8 0v3',
+  unlock:'M6 11h12v9H6zM8 11V8a4 4 0 0 1 7.6-1.7',
+  plus:'M12 5v14M5 12h14',
+  spark:'M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z',
+  warn:'M12 4l9 16H3zM12 10v4M12 17h.01',
+  cal:'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4',
+  x:'M6 6l12 12M18 6L6 18',
+  more:'M5 12h.01M12 12h.01M19 12h.01',
+  trash:'M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13',
+  link:'M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1',
+  upload:'M12 16V4M7 9l5-5 5 5M4 20h16',
+  download:'M12 4v12M7 11l5 5 5-5M4 20h16'
+};
+const ic = (n,s=20,w=1.8) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${n==='more'?3.2:w}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${P[n]}"/></svg>`;
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => Math.random().toString(36).slice(2,9);
+const todayISO = () => { const d=new Date(); d.setMinutes(d.getMinutes()-d.getTimezoneOffset()); return d.toISOString().slice(0,10); };
+const parseD = iso => { const [y,m,d]=iso.split('-').map(Number); return new Date(y,m-1,d); };
+const isoOf = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const fmtD = (iso,opt={month:'short',day:'numeric',year:'numeric'}) => iso ? parseD(iso).toLocaleDateString('en-US',opt) : '';
+const daysBetween = (a,b) => Math.round((parseD(b)-parseD(a))/864e5);
+const minusMonths = (iso,m) => { const d=parseD(iso); const whole=Math.floor(m); d.setMonth(d.getMonth()-whole); if(m%1) d.setDate(d.getDate()-Math.round((m%1)*30)); return isoOf(d); };
+const sum = (a,f=x=>x) => a.reduce((t,x)=>t+(+f(x)||0),0);
+
+/* ---------- seed data ---------- */
+const WEDDING = '2028-01-22';
+const TEMPLATE = [
+  [15,'Set date window and guest count','Planning','Both',true],
+  [15,'Agree on a total budget','Budget','Both',true],
+  [15,'Start the inspiration board','Décor','Thuraya',true],
+  [14.5,'Decide: legal ceremony at home, symbolic in Cartagena, or legal in Colombia','Legal','Both'],
+  [14.5,'Hire a Cartagena wedding planner or coordinator','Vendors','Nick'],
+  [14,'Tour hacienda venues (video calls or a scouting trip)','Venue','Both'],
+  [13,'Book the hacienda and sign the contract','Venue','Both'],
+  [13,'Choose and confirm the wedding date','Planning','Both'],
+  [12.5,'Block hotel rooms in the walled city or Getsemaní','Travel','Nick'],
+  [12,'Draft the guest list','Guests','Both'],
+  [12,'Book the photographer','Vendors','Thuraya'],
+  [11,'Send save-the-dates (9–12 months out for destination weddings)','Guests','Thuraya'],
+  [11,'Publish a guest info page: flights, hotels, passports, weather','Guests','Nick'],
+  [10,'Book the florist and share the inspiration board','Florals','Thuraya'],
+  [10,'Book catering and bar, or confirm what the venue includes','Catering','Planner'],
+  [10,'Book music: DJ plus a band for the hora loca','Music','Nick'],
+  [9,'Plan the lighting: string lights, candles, lanterns','Décor','Planner'],
+  [9,'Shop for wedding attire','Attire','Both'],
+  [9,'Pick a welcome-drinks spot','Events','Planner'],
+  [6,'Send invitations with an RSVP link','Guests','Thuraya'],
+  [6,'Book hair and makeup','Attire','Thuraya'],
+  [6,'Plan guest transport: airport to hotels, hotels to hacienda','Travel','Planner'],
+  [5,'Order welcome bags and favors','Décor','Thuraya'],
+  [4,'Menu and cake tasting','Catering','Both'],
+  [4,'Finalize the floral and décor plan','Florals','Planner'],
+  [4,'Buy wedding rings','Attire','Both'],
+  [3,'Chase RSVPs and confirm guest travel','Guests','Nick'],
+  [3,'Write the ceremony script and vows','Ceremony','Both'],
+  [2,'Build the day-of timeline with the planner','Planning','Planner'],
+  [2,'Review the final payment schedule','Budget','Nick'],
+  [1.5,'Seating plan','Guests','Thuraya'],
+  [1,'Give the final headcount to the caterer','Catering','Planner'],
+  [1,'Confirm every vendor: arrival times, contacts on WhatsApp','Vendors','Planner'],
+  [0.25,'Final walkthrough at the hacienda','Venue','Both'],
+  [0.25,'Withdraw COP cash for final balances and tips','Budget','Nick']
+];
+function seed(){
+  return {
+    v:1,
+    date:WEDDING, dateConfirmed:false, guests:40,
+    currency:'USD', rate:3194,
+    total:15000,
+    events:[
+      {id:'welcome',name:'Welcome drinks',on:true},
+      {id:'main',name:'Ceremony & reception',on:true,fixed:true},
+      {id:'rehearsal',name:'Rehearsal dinner',on:false},
+      {id:'dayafter',name:'Day-after: Rosario Islands boat day',on:false}
+    ],
+    cats:[
+      ['venue','Venue: hacienda',2600,false,'main'],
+      ['catering','Catering & bar',3300,false,'main'],
+      ['florals','Florals & décor',1800,true,'main'],
+      ['lighting','Lighting: string lights & candles',700,true,'main'],
+      ['photo','Photography',1500,false,'main'],
+      ['music','Music: DJ & hora loca band',900,false,'main'],
+      ['planner','Planner / coordinator',1200,false,'main'],
+      ['attire','Attire & beauty',1200,false,'main'],
+      ['cake','Cake & desserts',300,false,'main'],
+      ['ceremony','Officiant & ceremony',250,false,'main'],
+      ['stationery','Stationery & guest website',150,false,'main'],
+      ['favors','Favors & welcome bags',200,false,'main'],
+      ['buffer','Buffer',300,false,'main'],
+      ['welcome','Welcome drinks',600,false,'welcome'],
+      ['rehearsal','Rehearsal dinner',800,false,'rehearsal'],
+      ['dayafter','Rosario Islands boat day',1000,false,'dayafter']
+    ].map(([id,name,amount,locked,event])=>({id,name,amount,locked,event})),
+    payments:[
+      {id:uid(),cat:'planner',label:'Planner retainer',amount:400,due:'2026-11-30',paid:false,sample:true},
+      {id:uid(),cat:'venue',label:'Venue deposit (30%)',amount:780,due:'2026-12-15',paid:false,sample:true},
+      {id:uid(),cat:'photo',label:'Photographer deposit',amount:500,due:'2027-02-01',paid:false,sample:true}
+    ],
+    tasks:TEMPLATE.map(([m,title,cat,who,done])=>({id:uid(),title,cat,who,done:!!done,due:minusMonths(WEDDING,m)})),
+    vendors:[
+      {id:uid(),name:'Hacienda venue: option A',cat:'venue',status:2,quote:2600,contact:'WhatsApp +57 300 000 0000',notes:'Courtyard seats 60. Tables and chairs included. Ask about the music curfew and rain plan.',sample:true},
+      {id:uid(),name:'Florist: tropical and garden roses',cat:'florals',status:1,quote:0,contact:'Instagram DM',notes:'Sent the inspiration board. Waiting on a quote for arches and long-table runners.',sample:true},
+      {id:uid(),name:'Photographer based in Cartagena',cat:'photo',status:0,quote:0,contact:'',notes:'Shortlist three. Look for golden-hour and candlelight work.',sample:true},
+      {id:uid(),name:'Papayera band for the hora loca',cat:'music',status:0,quote:0,contact:'',notes:'Ask for a 45-minute late-night set.',sample:true}
+    ],
+    ideas:[
+      {id:uid(),title:'Café lights over the courtyard',tag:'Lighting',kind:'art',art:'art-lights',shape:'',votes:{Nick:true,Thuraya:true},by:'Thuraya',sample:true},
+      {id:uid(),title:'Bougainvillea spilling over plaster walls',tag:'Venue',kind:'art',art:'art-bougain',shape:'tall',votes:{Thuraya:true},by:'Thuraya',sample:true},
+      {id:uid(),title:'One long table with candles and greenery',tag:'Décor',kind:'art',art:'art-table',shape:'wide',votes:{Nick:true,Thuraya:true},by:'Nick',sample:true},
+      {id:uid(),title:'Heliconias, orchids and white roses',tag:'Florals',kind:'art',art:'art-helic',shape:'',votes:{Thuraya:true},by:'Thuraya',sample:true},
+      {id:uid(),title:'Colors of the old-city doors',tag:'Décor',kind:'art',art:'art-doors',shape:'wide',votes:{Nick:true},by:'Nick',sample:true},
+      {id:uid(),title:'Palette: terracotta, bougainvillea, cream, sage',tag:'Palette',kind:'art',art:'art-palette',shape:'wide',votes:{Nick:true,Thuraya:true},by:'Nick',sample:true}
+    ],
+    guestList:[
+      {id:uid(),name:'Rivera family',party:4,side:'Thuraya',rsvp:'Pending',travel:'Not yet',sample:true},
+      {id:uid(),name:'Sam & Jordan',party:2,side:'Nick',rsvp:'Yes',travel:'Flights booked',sample:true},
+      {id:uid(),name:'Aunt Maria',party:1,side:'Thuraya',rsvp:'Maybe',travel:'Not yet',sample:true},
+      {id:uid(),name:'College friends',party:6,side:'Nick',rsvp:'Pending',travel:'Not yet',sample:true}
+    ],
+    notes:[
+      ['decision','Budget set at $15,000 USD. It can flex up or down as life changes.'],
+      ['decision','Guest count: 30–50 people.'],
+      ['decision','Date window: December 2027 to February 2028.'],
+      ['decision','Vision: a Cartagena hacienda with a beautiful courtyard, soft lights, lots of flowers and color.'],
+      ['decision','Events: welcome drinks plus ceremony & reception. Rehearsal dinner and a day-after event are optional.'],
+      ['decision','Our planner can edit tasks, vendors and the timeline. The budget is view-only for the planner.']
+    ].map(([type,text])=>({id:uid(),type,text,by:'Nick',date:'2026-10-20'})),
+    dismissed:[]
+  };
+}
+
+/* ---------- state ---------- */
+const KEY='nt-cartagena-v1';
+let S; try{ S=JSON.parse(localStorage.getItem(KEY)) }catch(e){}
+if(!S || S.v!==1) S=seed();
+let viewer='Nick', taskFilter='All', ideaFilter='All', ideaSort='new', noteFilter='All', flexBase=null;
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(S)); return true }catch(e){ return false } }
+const canBudget = () => viewer!=='Planner';
+const isCouple = () => viewer!=='Planner';
+
+/* money */
+const usdF = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});
+const copF = new Intl.NumberFormat('es-CO',{maximumFractionDigits:0});
+const cmpF = new Intl.NumberFormat('en-US',{notation:'compact',maximumFractionDigits:1});
+function money(usd,short=false){
+  if(S.currency==='COP'){ const v=usd*S.rate; return short && Math.abs(v)>=1e6 ? 'COP '+cmpF.format(v) : 'COP '+copF.format(Math.round(v)); }
+  return usdF.format(Math.round(usd));
+}
+const toDisp = usd => S.currency==='COP' ? Math.round(usd*S.rate) : Math.round(usd);
+const fromDisp = v => S.currency==='COP' ? (+v||0)/S.rate : (+v||0);
+const step = () => S.currency==='COP' ? 10000 : 10;
+
+/* budget math */
+const activeEvents = () => new Set(S.events.filter(e=>e.on).map(e=>e.id));
+const activeCats = () => { const a=activeEvents(); return S.cats.filter(c=>a.has(c.event)); };
+const planned = () => sum(activeCats(),c=>c.amount);
+const paidFor = id => sum(S.payments.filter(p=>p.paid && p.cat===id),p=>p.amount);
+const paidTotal = () => sum(S.payments.filter(p=>p.paid && activeEvents().has((S.cats.find(c=>c.id===p.cat)||{}).event)),p=>p.amount);
+function rebalance(total, base){
+  const act=activeCats(); const src = base || Object.fromEntries(act.map(c=>[c.id,c.amount]));
+  const locked=act.filter(c=>c.locked), free=act.filter(c=>!c.locked);
+  const L=sum(locked,c=>c.amount), U=sum(free,c=>src[c.id]??c.amount);
+  const pool=total-L;
+  if(pool<0 || !free.length) return false;
+  if(U<=0){ free.forEach(c=>c.amount=Math.round(pool/free.length/10)*10); }
+  else { free.forEach(c=>{ c.amount=Math.max(0,Math.round((src[c.id]??c.amount)*pool/U/10)*10) }); }
+  const diff=pool-sum(free,c=>c.amount);
+  const big=free.reduce((a,b)=>b.amount>a.amount?b:a,free[0]); big.amount+=diff;
+  return true;
+}
+
+/* ---------- suggestions (rules) ---------- */
+function suggestions(){
+  const out=[], t=todayISO(), total=S.total, plan=planned(), act=activeCats();
+  const monthsLeft = daysBetween(t,S.date)/30.4;
+  const L=sum(act.filter(c=>c.locked),c=>c.amount);
+  if(plan>total+5) out.push({id:'over',tone:'alert',title:`Your plan is ${money(plan-total)} over budget`,body:'Rebalance scales the unlocked categories down to fit. Locked must-haves stay where they are.',act:canBudget()&&{label:'Rebalance to fit',run:'rebalance'}});
+  else if(total-plan>5) out.push({id:'under',tone:'tip',title:`${money(total-plan)} isn't assigned to anything yet`,body:'Add it to your buffer, or rebalance to spread it across unlocked categories.',act:canBudget()&&{label:'Add to buffer',run:'toBuffer'}});
+  const buf=S.cats.find(c=>c.id==='buffer'); const bp=buf.amount/total;
+  if(bp<0.05) out.push({id:'buffer',tone:'warn',title:`Your buffer is ${Math.round(bp*100)}% of the budget`,body:`Planners usually keep 5–10% aside for surprises such as exchange-rate swings, extra guests and tips. 7% would be ${money(total*.07)}.`,act:canBudget()&&{label:'Raise buffer to 7%',run:'buffer7'}});
+  if(L/total>0.6) out.push({id:'locked',tone:'warn',title:`${Math.round(L/total*100)}% of the budget is locked`,body:'With this much locked, a lower budget squeezes everything else hard. Unlock a category or two if you need room to cut.'});
+  const soon=S.payments.filter(p=>!p.paid && daysBetween(t,p.due)<=30);
+  soon.forEach(p=>out.push({id:'pay-'+p.id,tone:daysBetween(t,p.due)<0?'alert':'warn',title:`${esc(p.label)}: ${money(p.amount)} ${daysBetween(t,p.due)<0?'was due':'due'} ${fmtD(p.due,{month:'short',day:'numeric'})}`,body:'Mark it paid in Budget once it goes out, so the totals stay right.',act:{label:'Open budget',run:'go',arg:'budget'}}));
+  const overdue=S.tasks.filter(x=>!x.done && x.due<t);
+  if(overdue.length) out.push({id:'overdue-'+overdue.length,tone:'warn',title:`${overdue.length} task${overdue.length>1?'s are':' is'} past due`,body:overdue.slice(0,3).map(x=>esc(x.title)).join(' · '),act:{label:'Open checklist',run:'go',arg:'checklist'}});
+  if(!S.dateConfirmed) out.push({id:'date',tone:'tip',title:'Pick your exact date inside the Dec–Feb window',body:'Christmas through New Year is peak season in Cartagena, with the highest hotel and flight prices. Mid-January through February is still dry season and usually easier to book.',act:{label:'Set the date',run:'go',arg:'details'}});
+  const venueBooked=S.vendors.some(v=>v.cat==='venue'&&v.status>=3);
+  if(!venueBooked && monthsLeft<=16) out.push({id:'venue',tone:'warn',title:'Book the hacienda first',body:'The venue fixes your date, capacity and what catering is included. Aim to sign 12–15 months before the wedding.',act:{label:'Open vendors',run:'go',arg:'vendors'}});
+  out.push({id:'legal',tone:'tip',title:'Decide on a legal or symbolic ceremony',body:'A civil wedding in Colombia needs apostilled, translated documents filed ahead of time. Many couples marry legally at home and hold a symbolic ceremony in Cartagena.',act:{label:'Add to notes',run:'note',arg:'Question: legal ceremony in Colombia, or legal at home + symbolic in Cartagena?'}});
+  if(S.cats.find(c=>c.id==='florals').locked) out.push({id:'flowers',tone:'tip',title:'Flowers go further in Colombia',body:'Colombia is one of the world\'s largest flower exporters, so roses and carnations are good value. Heliconias, orchids and bougainvillea suit a hacienda courtyard.'});
+  out.push({id:'iva',tone:'tip',title:'Check that quotes include IVA',body:'Colombia charges 19% IVA (VAT) on many services. Ask each vendor to confirm "IVA incluido" so your numbers hold.',act:{label:'Add task',run:'task',arg:'Confirm every vendor quote includes IVA'}});
+  out.push({id:'sunset',tone:'tip',title:'Plan a late-afternoon ceremony',body:'Midday in Cartagena is hot. A ceremony around 4:30 pm lands in golden hour, and your soft lights take over after sunset, close to 6 pm.'});
+  out.push({id:'hora',tone:'tip',title:'Add a hora loca',body:'A Colombian wedding tradition: a late-night burst of live drums, brass, masks and props. Ask your music vendor if they offer it.'});
+  const per=total/S.guests;
+  out.push({id:'pp-'+S.guests+'-'+total,tone:'tip',title:`${money(per)} per guest at ${S.guests} guests`,body:`At 30 guests that is ${money(total/30)}, and at 50 it is ${money(total/50)}. Catering and bar scale with headcount, so ask vendors for per-person quotes.`});
+  return out.filter(s=>!S.dismissed.includes(s.id));
+}
+function suggHTML(list){
+  return list.map(s=>`<div class="sugg" data-tone="${s.tone}">
+    <span class="dot">${ic(s.tone==='tip'?'spark':'warn',18)}</span>
+    <div><h4>${s.title}</h4><p>${s.body}</p>${s.act?`<div class="row"><button class="btn small" data-act="sugg" data-run="${s.act.run}" data-arg="${esc(s.act.arg||'')}">${s.act.label}</button></div>`:''}</div>
+    <button class="icon-btn" data-act="dismiss" data-id="${esc(s.id)}" aria-label="Dismiss suggestion">${ic('x',16)}</button>
+  </div>`).join('') || '<p class="muted">Nothing to flag right now.</p>';
+}
+
+/* ---------- navigation ---------- */
+const ROUTES=[['home','Home'],['checklist','Checklist'],['budget','Budget'],['vendors','Vendors'],['inspiration','Inspiration'],['guests','Guests'],['notes','Notes'],['details','Wedding details']];
+const TABS=['home','checklist','budget','inspiration'];
+let route = ROUTES.some(r=>r[0]===location.hash.slice(1)) ? location.hash.slice(1) : 'home';
+function navHTML(){
+  $('#sideNav').innerHTML=ROUTES.map(([id,l])=>`<a href="#${id}" data-act="go" data-arg="${id}" ${route===id?'aria-current="page"':''}>${ic(id)}${l}</a>`).join('');
+  $('#tabbar').innerHTML=TABS.map(id=>`<a href="#${id}" data-act="go" data-arg="${id}" ${route===id?'aria-current="page"':''}>${ic(id,22)}${ROUTES.find(r=>r[0]===id)[1].replace('Inspiration','Ideas')}</a>`).join('')
+    + `<button type="button" data-act="more" aria-expanded="${!$('#moreSheet').hidden}" aria-controls="moreSheet" ${TABS.includes(route)?'':'aria-current="page"'}>${ic('more',22)}More</button>`;
+  $('#moreSheet').innerHTML=ROUTES.filter(r=>!TABS.includes(r[0])).map(([id,l])=>`<a href="#${id}" data-act="go" data-arg="${id}">${ic(id)}${l}</a>`).join('');
+  document.querySelectorAll('#curSeg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S.currency));
+  $('#viewerSel').value=viewer;
+  $('#sideDate').textContent=`Cartagena, Colombia · ${fmtD(S.date,{month:'long',day:'numeric',year:'numeric'})}${S.dateConfirmed?'':' (target)'}`;
+}
+function go(r,focus=true){ route=r; $('#moreSheet').hidden=true; try{ history.replaceState(null,'','#'+r) }catch(e){} render(); window.scrollTo(0,0); if(focus) $('#view').focus({preventScroll:true}); }
+
+/* ---------- views ---------- */
+const sampleBanner = (list,kind) => list.some(x=>x.sample) ? `<div class="banner"><span class="pill ochre">Examples</span><span>Entries marked “Example” are placeholders to show how this works.</span><button class="btn small" data-act="clearSamples" data-kind="${kind}">Clear examples</button></div>` : '';
+const exTag = x => x.sample ? ' <span class="pill ochre">Example</span>' : '';
+const viewOnly = () => canBudget() ? '' : `<div class="banner view">${ic('lock',18)}<span><b>View only.</b> Your planner can see the budget but only Nick and Thuraya can change it.</span></div>`;
+
+function tilesSVG(){ return `<svg class="tiles" aria-hidden="true"><rect width="100%" height="100%" fill="url(#tilePat)"/></svg>`; }
+
+const V={};
+V.home=()=>{
+  const t=todayISO(), days=daysBetween(t,S.date), plan=planned(), paid=paidTotal();
+  const done=S.tasks.filter(x=>x.done).length;
+  const next=S.tasks.filter(x=>!x.done).sort((a,b)=>a.due.localeCompare(b.due)).slice(0,5);
+  const pays=S.payments.filter(p=>!p.paid).sort((a,b)=>a.due.localeCompare(b.due)).slice(0,3);
+  const yes=sum(S.guestList.filter(g=>g.rsvp==='Yes'),g=>g.party), invited=sum(S.guestList,g=>g.party);
+  const sg=suggestions();
+  const loved=S.ideas.filter(i=>i.votes.Nick&&i.votes.Thuraya).slice(0,4);
+  return `
+  <section class="hero" aria-labelledby="heroNames">${tilesSVG()}
+    <div class="hero-inner">
+      <div>
+        <p class="label">The wedding of</p>
+        <h1 class="names" id="heroNames">Nick <span class="amp">&amp;</span> Thuraya</h1>
+        <div class="where"><span>Cartagena, Colombia</span><span>Hacienda courtyard</span><span>${fmtD(S.date,{weekday:'long',month:'long',day:'numeric',year:'numeric'})} ${S.dateConfirmed?'<span class="pill sage">Confirmed</span>':'<span class="pill ochre">Target date</span>'}</span></div>
+      </div>
+      <div class="count"><b class="num">${days>0?days:0}</b><span class="label">days to go</span></div>
+    </div>
+  </section>
+
+  <div class="grid g3">
+    <a class="card stat" href="#budget" data-act="go" data-arg="budget" style="text-decoration:none;color:inherit">
+      <p class="label">Budget planned</p><b class="num">${money(plan,true)}</b>
+      <p class="muted num" style="font-size:.88rem">of ${money(S.total,true)} · ${money(paid,true)} paid</p>
+      <div class="bar" role="img" aria-label="${Math.round(plan/S.total*100)}% of budget planned"><i style="width:${Math.min(100,plan/S.total*100)}%"></i></div>
+    </a>
+    <a class="card stat" href="#checklist" data-act="go" data-arg="checklist" style="text-decoration:none;color:inherit">
+      <p class="label">Checklist</p><b class="num">${done} / ${S.tasks.length}</b>
+      <p class="muted" style="font-size:.88rem">tasks done</p>
+      <div class="bar" role="img" aria-label="${Math.round(done/S.tasks.length*100)}% of tasks done"><i class="paid" style="width:${done/S.tasks.length*100}%"></i></div>
+    </a>
+    <a class="card stat" href="#guests" data-act="go" data-arg="guests" style="text-decoration:none;color:inherit">
+      <p class="label">Guests</p><b class="num">${S.guests} planned</b>
+      <p class="muted num" style="font-size:.88rem">${invited} on the list · ${yes} said yes</p>
+      <div class="bar" role="img" aria-label="${yes} of ${S.guests} confirmed"><i class="paid" style="width:${Math.min(100,yes/S.guests*100)}%"></i></div>
+    </a>
+  </div>
+
+  <div class="grid g2">
+    <section class="card" aria-labelledby="sgH">
+      <div class="row between" style="margin-bottom:14px"><h3 id="sgH">Suggestions</h3><span class="pill">${sg.length}</span></div>
+      ${suggHTML(sg.slice(0,4))}
+      ${sg.length>4?`<button class="btn small ghost" data-act="allSugg" style="margin-top:8px">Show all ${sg.length}</button>`:''}
+    </section>
+    <div class="stack" style="gap:16px">
+      <section class="card" aria-labelledby="nxH">
+        <div class="row between" style="margin-bottom:6px"><h3 id="nxH">Up next</h3><a href="#checklist" data-act="go" data-arg="checklist" class="btn small ghost">Full checklist</a></div>
+        <div>${next.map(taskRow).join('') || '<p class="muted">All caught up.</p>'}</div>
+      </section>
+      <section class="card" aria-labelledby="pyH">
+        <div class="row between" style="margin-bottom:6px"><h3 id="pyH">Upcoming payments</h3></div>
+        ${pays.length?pays.map(p=>`<div class="pay"><span>${ic('cal',18)}</span><div><b>${esc(p.label)}</b>${exTag(p)}<div class="t-meta"><span class="${p.due<t?'':'num'}" style="${p.due<t?'color:var(--alert)':''}">${fmtD(p.due)}</span></div></div><b class="num">${money(p.amount)}</b><span></span></div>`).join(''):'<p class="muted">No payments scheduled.</p>'}
+      </section>
+    </div>
+  </div>
+
+  <section class="card" aria-labelledby="viH">
+    <div class="row between"><div><p class="label">Our vision</p><h3 id="viH" style="margin-top:4px;font-size:1.5rem;font-style:italic">A hacienda courtyard, soft lights, lots of flowers and color</h3></div><a class="btn small" href="#inspiration" data-act="go" data-arg="inspiration">Open board</a></div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(min(100%,140px),1fr));margin-top:16px">
+      ${loved.map(i=>`<div style="border-radius:8px;overflow:hidden;aspect-ratio:1;max-width:100%;${i.kind==='image'?`background:url(${i.src}) center/cover`:''}" class="${i.kind==='art'?i.art:''}" role="img" aria-label="${esc(i.title)}"></div>`).join('')}
+    </div>
+    <p class="muted" style="font-size:.85rem;margin-top:10px">Ideas you both love show up here.</p>
+  </section>`;
+};
+
+function taskRow(x){
+  const t=todayISO(), late=!x.done&&x.due<t;
+  return `<div class="task ${x.done?'done':''}">
+    <input type="checkbox" class="check" id="tk-${x.id}" data-chg="task" data-id="${x.id}" ${x.done?'checked':''} aria-label="Done: ${esc(x.title)}">
+    <div style="min-width:0"><label for="tk-${x.id}" class="t-title" style="cursor:pointer">${esc(x.title)}</label>
+      <div class="t-meta"><span style="${late?'color:var(--alert);font-weight:700':''}">${late?'Overdue · ':''}${fmtD(x.due)}</span><span>${esc(x.who)}</span><span>${esc(x.cat)}</span></div></div>
+    <button class="icon-btn" data-act="delTask" data-id="${x.id}" aria-label="Delete task: ${esc(x.title)}">${ic('trash',16)}</button>
+  </div>`;
+}
+
+V.checklist=()=>{
+  const f=taskFilter;
+  let list=[...S.tasks].sort((a,b)=>a.due.localeCompare(b.due));
+  if(['Nick','Thuraya','Planner'].includes(f)) list=list.filter(x=>x.who===f||(x.who==='Both'&&f!=='Planner'));
+  if(f==='Open') list=list.filter(x=>!x.done);
+  if(f==='Done') list=list.filter(x=>x.done);
+  const groups={};
+  list.forEach(x=>{ const k=x.due.slice(0,7); (groups[k]=groups[k]||[]).push(x); });
+  const done=S.tasks.filter(x=>x.done).length;
+  return `
+  <div class="sec-head"><div><h2>Checklist</h2><p class="muted">A month-by-month plan for a Cartagena destination wedding, counted back from ${fmtD(S.date)}. Change the date in Wedding details and every task moves with it.</p></div>
+    <div class="row"><button class="btn small" data-act="exportTodoist">${ic('download',16)}Todoist CSV</button><button class="btn small" data-act="exportICS">${ic('cal',16)}Calendar (.ics)</button></div></div>
+  <div class="card stack">
+    <div class="row between"><b class="num">${done} of ${S.tasks.length} done</b><span class="muted num">${Math.round(done/S.tasks.length*100)}%</span></div>
+    <div class="bar"><i class="paid" style="width:${done/S.tasks.length*100}%"></i></div>
+    <div class="chips" role="group" aria-label="Filter tasks">${['All','Open','Done','Nick','Thuraya','Planner'].map(c=>`<button class="chip" data-act="taskFilter" data-v="${c}" aria-pressed="${f===c}">${c}</button>`).join('')}</div>
+    <details class="add"><summary class="btn primary small">${ic('plus',16)}Add task</summary>
+      <form data-form="task" class="formgrid">
+        <div class="field" style="grid-column:1/-1"><label for="ntTitle">Task</label><input type="text" id="ntTitle" name="title" required placeholder="e.g. Book a boat for the Rosario Islands"></div>
+        <div class="field"><label for="ntDue">Due</label><input type="date" id="ntDue" name="due" required value="${todayISO()}"></div>
+        <div class="field"><label for="ntWho">Who</label><select id="ntWho" name="who"><option>Both</option><option>Nick</option><option>Thuraya</option><option>Planner</option></select></div>
+        <div class="field"><label for="ntCat">Area</label><select id="ntCat" name="cat">${['Planning','Venue','Vendors','Guests','Travel','Florals','Décor','Catering','Music','Attire','Ceremony','Legal','Budget','Events'].map(c=>`<option>${c}</option>`).join('')}</select></div>
+        <button class="btn primary">Add</button>
+      </form></details>
+  </div>
+  ${Object.keys(groups).length?Object.entries(groups).map(([k,items])=>{
+    const m=Math.round(daysBetween(k+'-15',S.date)/30.4);
+    return `<section class="card"><div class="month"><h3>${fmtD(k+'-01',{month:'long',year:'numeric'})}</h3><span class="label">${m>0?m+' months out':m===0?'Wedding month':''}</span></div>${items.map(taskRow).join('')}</section>`;
+  }).join(''):'<div class="empty">No tasks match this filter.</div>'}`;
+};
+
+V.budget=()=>{
+  const plan=planned(), total=S.total, paid=paidTotal(), act=activeCats(), diff=total-plan;
+  const L=sum(act.filter(c=>c.locked),c=>c.amount);
+  const t=todayISO();
+  const evs=S.events;
+  const byEvent=evs.filter(e=>e.on).map(e=>({e,cats:S.cats.filter(c=>c.event===e.id)}));
+  const dis=canBudget()?'':'disabled';
+  return `
+  <div class="sec-head"><div><h2>Budget</h2><p class="muted">Lock your must-haves. When the total moves up or down, everything unlocked scales to fit.</p></div></div>
+  ${viewOnly()}
+  <div class="grid g2">
+    <section class="card flex-ctl" aria-labelledby="totH">
+      <fieldset ${dis} class="flex-ctl">
+        <div><p class="label" id="totH">Total budget</p><div class="total-big num" id="totBig">${money(total)}</div>
+          <p class="muted num" style="margin-top:6px" id="perGuest">${money(total/S.guests)} per guest at ${S.guests} guests</p></div>
+        <div class="field"><label for="totRange">Adjust total</label>
+          <input type="range" id="totRange" min="5000" max="40000" step="250" value="${total}" data-inp="total" aria-valuetext="${money(total)}"></div>
+        <div class="row">
+          ${[-20,-10,10,20].map(p=>`<button type="button" class="chip" data-act="pct" data-v="${p}">${p>0?'+':''}${p}%</button>`).join('')}
+          <span class="field" style="flex:1;min-width:140px"><label for="totNum" class="sr">Exact total in ${S.currency}</label><input type="number" id="totNum" min="0" step="${step()}" value="${toDisp(total)}" data-chg="totalNum"></span>
+        </div>
+      </fieldset>
+      <p class="muted" style="font-size:.85rem">${money(L)} locked across ${act.filter(c=>c.locked).length} must-haves. ${money(total-L)} can flex.</p>
+    </section>
+    <section class="card stack" aria-labelledby="sumH">
+      <h3 id="sumH" class="sr">Summary</h3>
+      <div class="grid" style="grid-template-columns:1fr 1fr;gap:16px">
+        <div><p class="label">Planned</p><b class="num" style="font-size:1.4rem" id="planV">${money(plan)}</b></div>
+        <div><p class="label">Paid so far</p><b class="num" style="font-size:1.4rem">${money(paid)}</b></div>
+        <div><p class="label">Still to pay</p><b class="num" style="font-size:1.4rem">${money(plan-paid)}</b></div>
+        <div><p class="label">Exchange rate</p><b class="num" style="font-size:1.4rem">${copF.format(S.rate)}</b><span class="muted" style="font-size:.8rem"> COP / USD</span></div>
+      </div>
+      <div id="statusLine" class="status-line ${Math.abs(diff)<=5?'ok':diff<0?'over':''}">${statusText(diff)}</div>
+      <div class="field"><p class="label">Events in the budget</p>
+        <div class="chips">${evs.map(e=>`<button class="chip" data-act="event" data-id="${e.id}" aria-pressed="${e.on}" ${e.fixed||!canBudget()?'disabled':''}>${e.on?'':ic('plus',14)}${esc(e.name)}</button>`).join('')}</div></div>
+    </section>
+  </div>
+
+  <section class="card" aria-labelledby="catH">
+    <div class="row between" style="margin-bottom:8px"><h3 id="catH">Categories</h3><span class="muted" style="font-size:.85rem">${ic('lock',14)} = must-have</span></div>
+    ${byEvent.map(({e,cats})=>`
+      ${byEvent.length>1?`<p class="label" style="margin-top:18px">${esc(e.name)}</p>`:''}
+      ${cats.map(c=>{ const pd=paidFor(c.id); return `<div class="cat" data-cat="${c.id}">
+        <button class="icon-btn lock" data-act="lock" data-id="${c.id}" aria-pressed="${c.locked}" aria-label="${c.locked?'Unlock':'Lock'} ${esc(c.name)}" ${dis}>${ic(c.locked?'lock':'unlock',18)}</button>
+        <div style="min-width:0"><div class="nm">${esc(c.name)}</div><div class="sub"><span class="num" data-pct>${(c.amount/total*100).toFixed(1)}%</span>${pd?`<span class="num" style="color:var(--sage)">${money(pd)} paid</span>`:''}${c.locked?'<span style="color:var(--bougain)">Must-have</span>':''}</div></div>
+        <div class="amt"><label class="sr" for="amt-${c.id}">${esc(c.name)} amount in ${S.currency}</label><input type="number" id="amt-${c.id}" min="0" step="${step()}" value="${toDisp(c.amount)}" data-chg="amount" data-id="${c.id}" ${dis}></div>
+        <button class="icon-btn del" data-act="delCat" data-id="${c.id}" aria-label="Remove ${esc(c.name)}" ${dis||(c.id==='buffer'?'disabled':'')}>${ic('trash',16)}</button>
+        <div class="bar" aria-hidden="true"><i style="width:${c.amount?Math.min(100,pd/c.amount*100):0}%" class="paid"></i></div>
+      </div>`}).join('')}`).join('')}
+    ${canBudget()?`<details class="add" style="margin-top:16px"><summary class="btn small">${ic('plus',16)}Add category</summary>
+      <form data-form="cat" class="formgrid">
+        <div class="field"><label for="ncName">Name</label><input type="text" id="ncName" name="name" required placeholder="e.g. Videography"></div>
+        <div class="field"><label for="ncAmt">Amount (${S.currency})</label><input type="number" id="ncAmt" name="amount" min="0" step="${step()}" required></div>
+        <div class="field"><label for="ncEv">Event</label><select id="ncEv" name="event">${evs.filter(e=>e.on).map(e=>`<option value="${e.id}">${esc(e.name)}</option>`).join('')}</select></div>
+        <button class="btn primary">Add</button>
+      </form></details>`:''}
+  </section>
+
+  <section class="card" aria-labelledby="payH">
+    <div class="row between" style="margin-bottom:8px"><h3 id="payH">Payments & deposits</h3><button class="btn small" data-act="exportICS">${ic('cal',16)}Add due dates to calendar</button></div>
+    ${sampleBanner(S.payments,'payments')}
+    <div style="margin-top:8px">${S.payments.length?[...S.payments].sort((a,b)=>a.due.localeCompare(b.due)).map(p=>`<div class="pay">
+      <input type="checkbox" class="check" id="py-${p.id}" data-chg="paid" data-id="${p.id}" ${p.paid?'checked':''} ${dis} aria-label="Paid: ${esc(p.label)}">
+      <div style="min-width:0"><label for="py-${p.id}"><b>${esc(p.label)}</b></label>${exTag(p)}<div class="t-meta"><span style="${!p.paid&&p.due<t?'color:var(--alert);font-weight:700':''}">${p.paid?'Paid':'Due'} ${fmtD(p.due)}</span><span>${esc((S.cats.find(c=>c.id===p.cat)||{}).name||'')}</span></div></div>
+      <b class="num">${money(p.amount)}</b>
+      <button class="icon-btn" data-act="delPay" data-id="${p.id}" aria-label="Delete payment ${esc(p.label)}" ${dis}>${ic('trash',16)}</button></div>`).join(''):'<div class="empty">No payments yet. Add deposits as you book vendors.</div>'}</div>
+    ${canBudget()?`<details class="add" style="margin-top:14px"><summary class="btn small">${ic('plus',16)}Add payment</summary>
+      <form data-form="pay" class="formgrid">
+        <div class="field"><label for="npLabel">What</label><input type="text" id="npLabel" name="label" required placeholder="e.g. Florist deposit"></div>
+        <div class="field"><label for="npAmt">Amount (${S.currency})</label><input type="number" id="npAmt" name="amount" min="0" step="${step()}" required></div>
+        <div class="field"><label for="npDue">Due date</label><input type="date" id="npDue" name="due" required></div>
+        <div class="field"><label for="npCat">Category</label><select id="npCat" name="cat">${act.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select></div>
+        <button class="btn primary">Add</button>
+      </form></details>`:''}
+  </section>
+
+  <section class="card" aria-labelledby="bsH"><h3 id="bsH" style="margin-bottom:12px">Budget suggestions</h3>${suggHTML(suggestions().filter(s=>['over','under','buffer','locked','iva','flowers'].includes(s.id)||s.id.startsWith('pay-')||s.id.startsWith('pp-')))}</section>`;
+};
+function statusText(diff){
+  if(Math.abs(diff)<=5) return `${ic('spark',18)} Planned spend matches your total.`;
+  if(diff<0) return `${ic('warn',18)} Over by ${money(-diff)}. ${canBudget()?'<button class="btn small" data-act="sugg" data-run="rebalance">Rebalance to fit</button>':''}`;
+  return `${money(diff)} not assigned yet. ${canBudget()?'<button class="btn small" data-act="sugg" data-run="toBuffer">Add to buffer</button><button class="btn small ghost" data-act="sugg" data-run="rebalance">Spread it out</button>':''}`;
+}
+function refreshBudgetNumbers(){
+  const total=S.total, plan=planned();
+  $('#totBig').textContent=money(total);
+  $('#perGuest').textContent=`${money(total/S.guests)} per guest at ${S.guests} guests`;
+  $('#totNum').value=toDisp(total);
+  $('#totRange').setAttribute('aria-valuetext',money(total));
+  $('#planV').textContent=money(plan);
+  const sl=$('#statusLine'); const d=total-plan; sl.className='status-line '+(Math.abs(d)<=5?'ok':d<0?'over':''); sl.innerHTML=statusText(d);
+  activeCats().forEach(c=>{ const row=document.querySelector(`[data-cat="${c.id}"]`); if(!row) return; row.querySelector('input').value=toDisp(c.amount); row.querySelector('[data-pct]').textContent=(c.amount/total*100).toFixed(1)+'%'; });
+}
+
+const STATUS=['Researching','Contacted','Quote received','Booked','Paid in full'];
+V.vendors=()=>{
+  return `
+  <div class="sec-head"><div><h2>Vendors</h2><p class="muted">Track every vendor from first message to final payment. Most Cartagena vendors reply fastest on WhatsApp.</p></div></div>
+  ${sampleBanner(S.vendors,'vendors')}
+  <details class="add card"><summary class="btn primary small">${ic('plus',16)}Add vendor</summary>
+    <form data-form="vendor" class="formgrid">
+      <div class="field"><label for="nvName">Name</label><input type="text" id="nvName" name="name" required></div>
+      <div class="field"><label for="nvCat">Budget category</label><select id="nvCat" name="cat">${activeCats().map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select></div>
+      <div class="field"><label for="nvStatus">Status</label><select id="nvStatus" name="status">${STATUS.map((s,i)=>`<option value="${i}">${s}</option>`).join('')}</select></div>
+      <div class="field"><label for="nvQuote">Quote (${S.currency})</label><input type="number" id="nvQuote" name="quote" min="0" step="${step()}"></div>
+      <div class="field"><label for="nvContact">Contact</label><input type="text" id="nvContact" name="contact" placeholder="WhatsApp, email or Instagram"></div>
+      <div class="field" style="grid-column:1/-1"><label for="nvNotes">Notes</label><textarea id="nvNotes" name="notes" rows="2"></textarea></div>
+      <button class="btn primary">Add vendor</button>
+    </form></details>
+  <div class="grid g2">${S.vendors.map(v=>{ const cat=S.cats.find(c=>c.id===v.cat); return `<article class="card vendor">
+    <div class="row between" style="align-items:flex-start;flex-wrap:nowrap"><div style="min-width:0"><h3>${esc(v.name)}</h3><p class="muted" style="font-size:.85rem">${esc(cat?cat.name:'')}${exTag(v)}</p></div>
+      <button class="icon-btn" data-act="delVendor" data-id="${v.id}" aria-label="Delete ${esc(v.name)}">${ic('trash',16)}</button></div>
+    <div class="steps" aria-hidden="true">${STATUS.map((s,i)=>`<i class="${i<=v.status?'on':''}"></i>`).join('')}</div>
+    <div class="field" style="margin-top:10px"><label for="vs-${v.id}">Status</label><select id="vs-${v.id}" data-chg="vstatus" data-id="${v.id}">${STATUS.map((s,i)=>`<option value="${i}" ${i===v.status?'selected':''}>${s}</option>`).join('')}</select></div>
+    <dl>${v.quote?`<dt>Quote</dt><dd class="num">${money(v.quote)}${cat&&v.quote>cat.amount?` <span class="pill alert">${money(v.quote-cat.amount)} over category</span>`:''}</dd>`:''}${v.contact?`<dt>Contact</dt><dd>${esc(v.contact)}</dd>`:''}${v.notes?`<dt>Notes</dt><dd>${esc(v.notes)}</dd>`:''}</dl>
+  </article>`}).join('') || '<div class="empty">No vendors yet.</div>'}</div>`;
+};
+
+const TAGS=['Venue','Florals','Lighting','Décor','Palette','Attire','Cake','Other'];
+V.inspiration=()=>{
+  let list=S.ideas.filter(i=>ideaFilter==='All'||(ideaFilter==='Both love'?(i.votes.Nick&&i.votes.Thuraya):i.tag===ideaFilter));
+  if(ideaSort==='loved') list=[...list].sort((a,b)=>Object.values(b.votes).filter(Boolean).length-Object.values(a.votes).filter(Boolean).length);
+  return `
+  <div class="sec-head"><div><h2>Inspiration</h2><p class="muted">Upload photos, paste Pinterest or Google Images links, and heart the ones you love. Ideas you both heart go to the top of your vision.</p></div></div>
+  ${sampleBanner(S.ideas,'ideas')}
+  <section class="card stack" aria-labelledby="addIdeaH">
+    <h3 id="addIdeaH">Add inspiration</h3>
+    <form data-form="idea" class="formgrid">
+      <div class="field"><label for="niTitle">Caption</label><input type="text" id="niTitle" name="title" placeholder="e.g. Candles in hurricane glasses"></div>
+      <div class="field"><label for="niTag">Category</label><select id="niTag" name="tag">${TAGS.map(t=>`<option>${t}</option>`).join('')}</select></div>
+      <div class="field" style="grid-column:span 2;min-width:min(100%,260px)"><label for="niUrl">Link (Pinterest, Google Images, Instagram)</label><input type="url" id="niUrl" name="url" placeholder="https://pin.it/…"></div>
+      <button class="btn primary">Save link</button>
+    </form>
+    <label class="drop" id="dropZone" for="niFile">${ic('upload',22)}<br><b>Upload photos</b><br><span style="font-size:.85rem">Tap to choose, or drop images here. They use the caption and category above.</span>
+      <input type="file" id="niFile" accept="image/*" multiple class="sr" data-chg="upload"></label>
+  </section>
+  <div class="row between">
+    <div class="chips" role="group" aria-label="Filter inspiration">${['All','Both love',...TAGS].map(c=>`<button class="chip" data-act="ideaFilter" data-v="${c}" aria-pressed="${ideaFilter===c}">${c==='Both love'?ic('heart',14):''}${c}</button>`).join('')}</div>
+    <label class="row" style="gap:8px;font-size:.85rem"><span class="muted">Sort</span><select id="ideaSortSel" data-chg="ideaSort" style="width:auto"><option value="new" ${ideaSort==='new'?'selected':''}>Newest</option><option value="loved" ${ideaSort==='loved'?'selected':''}>Most loved</option></select></label>
+  </div>
+  ${list.length?`<div class="board">${list.map(ideaCard).join('')}</div>`:'<div class="empty">Nothing here yet. Add a photo or a link above.</div>'}`;
+};
+function ideaCard(i){
+  let media='';
+  if(i.kind==='art') media=`<div class="img ${i.art} ${i.shape}" role="img" aria-label="${esc(i.title)}"><span class="art-tag">Sample</span></div>`;
+  else if(i.kind==='image') media=`<img src="${i.src}" alt="${esc(i.title||'Inspiration photo')}">`;
+  else { let host=''; try{ host=new URL(i.url).hostname.replace('www.','') }catch(e){}
+    media=`<a class="link-art" href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${ic('link',26)}<b>${esc(host||'Link')}</b><span style="font-size:.8rem">Open the original. Previews load in the GitHub version.</span></a>`; }
+  const both=i.votes.Nick&&i.votes.Thuraya;
+  return `<figure class="idea">${media}<figcaption class="cap">
+    <b>${esc(i.title||'Untitled')}</b>
+    <div class="row between" style="gap:8px"><span class="pill terra">${esc(i.tag)}</span>${both?'<span class="pill pink">Both love it</span>':''}</div>
+    <div class="row between" style="gap:6px">
+      <div class="hearts">${['Nick','Thuraya'].map(p=>`<button class="heart" data-act="vote" data-id="${i.id}" data-p="${p}" aria-pressed="${!!i.votes[p]}" ${viewer!==p?'disabled':''} aria-label="${p} ${i.votes[p]?'loves':'has not hearted'} this${viewer===p?'. Toggle heart':''}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="${P.heart}"/></svg>${p}</button>`).join('')}</div>
+      <button class="icon-btn" data-act="delIdea" data-id="${i.id}" aria-label="Delete ${esc(i.title||'idea')}">${ic('trash',16)}</button>
+    </div></figcaption></figure>`;
+}
+
+V.guests=()=>{
+  const g=S.guestList, tot=sum(g,x=>x.party), c=r=>sum(g.filter(x=>x.rsvp===r),x=>x.party);
+  const travel=sum(g.filter(x=>x.travel!=='Not yet'),x=>x.party);
+  return `
+  <div class="sec-head"><div><h2>Guests</h2><p class="muted">You're planning for ${S.guests} guests. Track RSVPs and who has booked travel to Cartagena.</p></div></div>
+  ${sampleBanner(g,'guests')}
+  <div class="grid g3">
+    <div class="card stat"><p class="label">On the list</p><b class="num">${tot}</b><p class="muted" style="font-size:.85rem">target ${S.guests} · range 30–50</p></div>
+    <div class="card stat"><p class="label">RSVPs</p><b class="num">${c('Yes')} yes</b><p class="muted num" style="font-size:.85rem">${c('Maybe')} maybe · ${c('No')} no · ${c('Pending')} pending</p></div>
+    <div class="card stat"><p class="label">Travel booked</p><b class="num">${travel}</b><p class="muted" style="font-size:.85rem">of ${tot} people</p></div>
+  </div>
+  ${tot>50?`<div class="banner view">${ic('warn',18)}<span>Your list is above 50. Each extra guest adds about ${money(S.cats.find(x=>x.id==='catering').amount/S.guests)} in catering and bar alone.</span></div>`:''}
+  <section class="card">
+    <details class="add"><summary class="btn primary small">${ic('plus',16)}Add guest or party</summary>
+      <form data-form="guest" class="formgrid">
+        <div class="field"><label for="ngName">Name or party</label><input type="text" id="ngName" name="name" required></div>
+        <div class="field"><label for="ngParty">People</label><input type="number" id="ngParty" name="party" min="1" value="1"></div>
+        <div class="field"><label for="ngSide">Side</label><select id="ngSide" name="side"><option>Nick</option><option>Thuraya</option><option>Both</option></select></div>
+        <button class="btn primary">Add</button>
+      </form></details>
+    <div class="scroll" style="margin-top:12px"><table class="tbl"><thead><tr><th>Name</th><th>People</th><th>Side</th><th>RSVP</th><th>Travel</th><th><span class="sr">Delete</span></th></tr></thead><tbody>
+      ${g.map(x=>`<tr><td class="g-name">${esc(x.name)}${exTag(x)}</td><td class="num">${x.party} ${x.party>1?'people':'person'}</td><td>${esc(x.side)}</td>
+        <td><label class="sr" for="rs-${x.id}">RSVP for ${esc(x.name)}</label><select id="rs-${x.id}" data-chg="rsvp" data-id="${x.id}">${['Pending','Yes','Maybe','No'].map(r=>`<option ${r===x.rsvp?'selected':''}>${r}</option>`).join('')}</select></td>
+        <td><label class="sr" for="tr-${x.id}">Travel for ${esc(x.name)}</label><select id="tr-${x.id}" data-chg="travel" data-id="${x.id}">${['Not yet','Flights booked','Flights + hotel'].map(r=>`<option ${r===x.travel?'selected':''}>${r}</option>`).join('')}</select></td>
+        <td class="g-del"><button class="icon-btn" data-act="delGuest" data-id="${x.id}" aria-label="Delete ${esc(x.name)}">${ic('trash',16)}</button></td></tr>`).join('')}
+    </tbody></table></div>
+    ${g.length?'':'<div class="empty">No guests yet.</div>'}
+  </section>`;
+};
+
+V.notes=()=>{
+  const list=S.notes.filter(n=>noteFilter==='All'||n.type===noteFilter.toLowerCase());
+  const lab={decision:['Decision','sage'],note:['Note','terra'],question:['Question','ochre']};
+  return `
+  <div class="sec-head"><div><h2>Notes & decisions</h2><p class="muted">One place for what you've agreed, open questions, and anything you don't want to lose.</p></div></div>
+  <section class="card stack">
+    <form data-form="note" class="stack">
+      <div class="field"><label for="nnText">New entry</label><textarea id="nnText" name="text" rows="2" required placeholder="e.g. Decided: no plus-ones except partners"></textarea></div>
+      <div class="row"><label class="sr" for="nnType">Type</label><select id="nnType" name="type" style="width:auto"><option value="decision">Decision</option><option value="note">Note</option><option value="question">Question</option></select><button class="btn primary">Save</button></div>
+    </form>
+  </section>
+  <div class="chips" role="group" aria-label="Filter notes">${['All','Decision','Note','Question'].map(c=>`<button class="chip" data-act="noteFilter" data-v="${c}" aria-pressed="${noteFilter===c}">${c}</button>`).join('')}</div>
+  <section class="card">${list.length?[...list].reverse().map(n=>`<div class="note"><span class="pill ${lab[n.type][1]}">${lab[n.type][0]}</span><div><p>${esc(n.text)}</p><p class="when">${esc(n.by)} · ${fmtD(n.date)}</p></div><button class="icon-btn" data-act="delNote" data-id="${n.id}" aria-label="Delete entry">${ic('trash',16)}</button></div>`).join(''):'<p class="muted">Nothing here yet.</p>'}</section>`;
+};
+
+V.details=()=>{
+  const dis=canBudget()?'':'disabled';
+  return `
+  <div class="sec-head"><div><h2>Wedding details</h2><p class="muted">The basics everything else is built on. Changing the date moves the whole checklist.</p></div></div>
+  <div class="grid g2">
+    <section class="card stack" aria-labelledby="dH"><h3 id="dH">Date & size</h3>
+      <div class="field"><label for="dDate">Wedding date</label><input type="date" id="dDate" min="2027-12-01" max="2028-02-29" value="${S.date}" data-chg="date"></div>
+      <label class="row" style="gap:10px"><input type="checkbox" class="check" id="dConf" data-chg="dateConf" ${S.dateConfirmed?'checked':''}><span>The date is confirmed with the venue</span></label>
+      <div class="field"><label for="dGuests">Planned guest count: <b class="num" id="gOut">${S.guests}</b></label><input type="range" id="dGuests" min="20" max="80" value="${S.guests}" data-inp="guests" data-chg="guestsDone"><span class="muted" style="font-size:.85rem">Your range is 30–50.</span></div>
+    </section>
+    <section class="card stack" aria-labelledby="cH"><h3 id="cH">Currency</h3>
+      <p class="muted" style="font-size:.9rem">Amounts are stored in US dollars. Switch the display to pesos with the USD / COP toggle at the top.</p>
+      <div class="field"><label for="dRate">Exchange rate (COP per 1 USD)</label><input type="number" id="dRate" min="1000" max="10000" step="1" value="${S.rate}" data-chg="rate"></div>
+      <p class="muted" style="font-size:.85rem">Colombia's official rate (TRM) was 3,194 on Oct 13, 2026. Update it when you pay vendors in pesos.</p>
+    </section>
+    <section class="card stack" aria-labelledby="eH"><h3 id="eH">Events</h3>
+      <fieldset ${dis} class="stack">${S.events.map(e=>`<label class="row" style="gap:10px"><input type="checkbox" class="check" data-chg="eventChk" data-id="${e.id}" ${e.on?'checked':''} ${e.fixed?'disabled':''}><span>${esc(e.name)}${e.fixed?' <span class="muted">(always on)</span>':''}</span></label>`).join('')}</fieldset>
+      <p class="muted" style="font-size:.85rem">Turning an event on adds its budget line. Rebalance in Budget if it pushes you over.</p>
+    </section>
+    <section class="card stack" aria-labelledby="mH"><h3 id="mH">Who has access</h3>
+      <div class="scroll"><table class="tbl"><thead><tr><th>Person</th><th>Access</th></tr></thead><tbody>
+        <tr><td class="g-name">Nick</td><td>Everything</td></tr>
+        <tr><td class="g-name">Thuraya</td><td>Everything</td></tr>
+        <tr><td class="g-name">Your planner</td><td>Edit tasks, vendors, guests, notes. View the budget.</td></tr>
+      </tbody></table></div>
+      <p class="muted" style="font-size:.85rem">In the GitHub version, each person signs in with their own email, and only invited emails can open the site. Use “Viewing as” at the top to preview each person's access.</p>
+    </section>
+    <section class="card stack" aria-labelledby="xH"><h3 id="xH">Export & backup</h3>
+      <div class="row"><button class="btn small" data-act="exportJSON">${ic('download',16)}Everything (JSON)</button><button class="btn small" data-act="exportTodoist">${ic('download',16)}Checklist for Todoist</button><button class="btn small" data-act="exportICS">${ic('cal',16)}Calendar (.ics)</button><button class="btn small" data-act="exportCSV">${ic('download',16)}Budget (CSV)</button></div>
+      <p class="muted" style="font-size:.85rem">Todoist: create a project, then use Import from CSV. Calendar: import the .ics into Google Calendar or Apple Calendar.</p>
+    </section>
+    <section class="card stack" aria-labelledby="rH"><h3 id="rH">Reset prototype</h3>
+      <p class="muted" style="font-size:.9rem">Start over with the original example data.</p>
+      <div class="row" id="resetRow"><button class="btn small" data-act="resetAsk">Reset everything</button></div>
+    </section>
+  </div>`;
+};
+
+function render(){ navHTML(); $('#view').innerHTML=V[route](); bindDrop(); }
+
+/* ---------- toast & modal ---------- */
+let tt; function toast(m){ const t=$('#toast'); t.textContent=m; t.hidden=false; clearTimeout(tt); tt=setTimeout(()=>t.hidden=true,2600); }
+function modal(title,note,text){ $('#modalTitle').textContent=title; $('#modalNote').textContent=note; $('#modalText').value=text; const d=$('#modal'); try{ d.showModal() }catch(e){ d.setAttribute('open','') } }
+
+/* ---------- exports ---------- */
+const csvq = v => /[",\n]/.test(String(v)) ? '"'+String(v).replace(/"/g,'""')+'"' : String(v);
+function todoistCSV(){
+  const rows=[['TYPE','CONTENT','DESCRIPTION','PRIORITY','INDENT','AUTHOR','RESPONSIBLE','DATE','DATE_LANG','TIMEZONE','DURATION','DURATION_UNIT','DEADLINE','DEADLINE_LANG']];
+  const groups={}; S.tasks.filter(x=>!x.done).sort((a,b)=>a.due.localeCompare(b.due)).forEach(x=>{ const k=fmtD(x.due.slice(0,7)+'-01',{month:'long',year:'numeric'}); (groups[k]=groups[k]||[]).push(x); });
+  Object.entries(groups).forEach(([k,items])=>{ rows.push(['section',k,'','','','','','','','','','','','']); items.forEach(x=>rows.push(['task',x.title,`${x.cat} · ${x.who}`,'4','1','','',x.due,'en','America/New_York','','None','',''])); rows.push(Array(14).fill('')); });
+  return rows.map(r=>r.map(csvq).join(',')).join('\n');
+}
+function ics(){
+  const st=s=>s.replace(/[,;\\]/g,m=>'\\'+m);
+  const ev=(d,title,desc)=>{ const n=parseD(d); n.setDate(n.getDate()+1); return ['BEGIN:VEVENT',`UID:${uid()}@nick-thuraya-wedding`,`DTSTAMP:${new Date().toISOString().replace(/[-:]/g,'').slice(0,15)}Z`,`DTSTART;VALUE=DATE:${d.replace(/-/g,'')}`,`DTEND;VALUE=DATE:${isoOf(n).replace(/-/g,'')}`,`SUMMARY:${st(title)}`,`DESCRIPTION:${st(desc)}`,'END:VEVENT'].join('\r\n'); };
+  const out=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Nick & Thuraya//Wedding Planner//EN','CALSCALE:GREGORIAN'];
+  out.push(ev(S.date,'Nick & Thuraya’s wedding — Cartagena','Hacienda courtyard'));
+  S.payments.filter(p=>!p.paid).forEach(p=>out.push(ev(p.due,`Pay: ${p.label} (${usdF.format(p.amount)})`,'Wedding payment')));
+  S.tasks.filter(x=>!x.done).forEach(x=>out.push(ev(x.due,`Wedding: ${x.title}`,`${x.cat} · ${x.who}`)));
+  out.push('END:VCALENDAR'); return out.join('\r\n');
+}
+function budgetCSV(){
+  const rows=[['Event','Category','Planned USD','Planned COP','Paid USD','Must-have']];
+  activeCats().forEach(c=>rows.push([S.events.find(e=>e.id===c.event).name,c.name,c.amount,Math.round(c.amount*S.rate),paidFor(c.id),c.locked?'Yes':'No']));
+  rows.push(['','Total budget',S.total,Math.round(S.total*S.rate),'','']);
+  return rows.map(r=>r.map(csvq).join(',')).join('\n');
+}
+
+/* ---------- actions ---------- */
+const A={
+  go:(t,e)=>{ e.preventDefault(); go(t.dataset.arg); },
+  more:()=>{ const s=$('#moreSheet'); s.hidden=!s.hidden; navHTML(); },
+  cur:t=>{ S.currency=t.dataset.v; save(); render(); },
+  dismiss:t=>{ S.dismissed.push(t.dataset.id); save(); render(); },
+  allSugg:t=>{ const card=t.closest('section'); const list=suggestions(); card.innerHTML=`<div class="row between" style="margin-bottom:14px"><h3 id="sgH">Suggestions</h3><span class="pill">${list.length}</span></div>${suggHTML(list)}`; },
+  sugg:t=>{ const r=t.dataset.run, a=t.dataset.arg;
+    if(r==='rebalance'){ if(rebalance(S.total)){ save(); render(); toast('Rebalanced. Locked categories stayed put.'); } else toast('Locked categories alone exceed the total. Unlock one or raise the total.'); }
+    if(r==='toBuffer'){ const b=S.cats.find(c=>c.id==='buffer'); b.amount+=S.total-planned(); save(); render(); toast('Added to your buffer.'); }
+    if(r==='buffer7'){ const b=S.cats.find(c=>c.id==='buffer'); const was=b.locked; b.amount=Math.round(S.total*.07/10)*10; b.locked=true; rebalance(S.total); b.locked=was; save(); render(); toast('Buffer is now 7%. Other unlocked categories scaled down.'); }
+    if(r==='go') go(a);
+    if(r==='task'){ S.tasks.push({id:uid(),title:a,cat:'Planning',who:'Both',done:false,due:todayISO()}); save(); render(); toast('Added to your checklist.'); }
+    if(r==='note'){ S.notes.push({id:uid(),type:'question',text:a,by:viewer,date:todayISO()}); save(); render(); toast('Added to Notes.'); }
+  },
+  taskFilter:t=>{ taskFilter=t.dataset.v; render(); },
+  delTask:t=>{ S.tasks=S.tasks.filter(x=>x.id!==t.dataset.id); save(); render(); toast('Task deleted.'); },
+  pct:t=>{ if(!canBudget())return; const nt=Math.round(S.total*(1+ +t.dataset.v/100)/50)*50; if(rebalance(nt)){ S.total=nt; save(); render(); toast(`Total is now ${money(nt)}.`); } else toast('That total is below your locked must-haves.'); },
+  lock:t=>{ const c=S.cats.find(x=>x.id===t.dataset.id); c.locked=!c.locked; save(); render(); },
+  delCat:t=>{ S.cats=S.cats.filter(x=>x.id!==t.dataset.id); save(); render(); toast('Category removed.'); },
+  event:t=>{ const e=S.events.find(x=>x.id===t.dataset.id); e.on=!e.on; save(); render(); toast(e.on?`${e.name} added. Check the status line.`:`${e.name} removed from the budget.`); },
+  delPay:t=>{ S.payments=S.payments.filter(x=>x.id!==t.dataset.id); save(); render(); },
+  delVendor:t=>{ S.vendors=S.vendors.filter(x=>x.id!==t.dataset.id); save(); render(); toast('Vendor deleted.'); },
+  ideaFilter:t=>{ ideaFilter=t.dataset.v; render(); },
+  vote:t=>{ const i=S.ideas.find(x=>x.id===t.dataset.id); i.votes[t.dataset.p]=!i.votes[t.dataset.p]; save(); render(); },
+  delIdea:t=>{ S.ideas=S.ideas.filter(x=>x.id!==t.dataset.id); save(); render(); },
+  delGuest:t=>{ S.guestList=S.guestList.filter(x=>x.id!==t.dataset.id); save(); render(); },
+  noteFilter:t=>{ noteFilter=t.dataset.v; render(); },
+  delNote:t=>{ S.notes=S.notes.filter(x=>x.id!==t.dataset.id); save(); render(); },
+  clearSamples:t=>{ const k=t.dataset.kind; const map={payments:'payments',vendors:'vendors',ideas:'ideas',guests:'guestList'}; S[map[k]]=S[map[k]].filter(x=>!x.sample); save(); render(); toast('Examples cleared.'); },
+  exportJSON:()=>{ const copy=JSON.parse(JSON.stringify(S)); copy.ideas.forEach(i=>{ if(i.src) i.src='[uploaded image]'; }); modal('Backup: everything','Your full planner as JSON. Keep a copy somewhere safe.',JSON.stringify(copy,null,2)); },
+  exportTodoist:()=>modal('Checklist for Todoist','Open tasks grouped into monthly sections, in Todoist’s CSV template format. Save as wedding.csv, then in a Todoist project choose Import from CSV.',todoistCSV()),
+  exportICS:()=>modal('Calendar file (.ics)','Your wedding date, unpaid deposits and open tasks as all-day events. Save as wedding.ics and import into Google or Apple Calendar.',ics()),
+  exportCSV:()=>modal('Budget (CSV)','Every active category with planned and paid amounts in USD and COP.',budgetCSV()),
+  closeModal:()=>$('#modal').close(),
+  copyModal:()=>{ const txt=$('#modalText').value; navigator.clipboard?.writeText(txt).then(()=>toast('Copied.'),()=>{ $('#modalText').select(); toast('Press Ctrl+C or ⌘C to copy.'); }) ?? ($('#modalText').select(), toast('Press Ctrl+C or ⌘C to copy.')); },
+  resetAsk:()=>{ $('#resetRow').innerHTML='<span>Erase every change?</span><button class="btn small primary" data-act="resetYes">Yes, reset</button><button class="btn small ghost" data-act="resetNo">Cancel</button>'; },
+  resetNo:()=>render(),
+  resetYes:()=>{ S=seed(); save(); render(); toast('Prototype reset.'); }
+};
+const C={
+  viewer:t=>{ viewer=t.value; render(); toast(`Now viewing as ${viewer==='Planner'?'your planner':viewer}.`); },
+  task:t=>{ const x=S.tasks.find(k=>k.id===t.dataset.id); x.done=t.checked; save(); setTimeout(render,180); },
+  totalNum:t=>{ const nt=Math.round(fromDisp(t.value)); if(rebalance(nt)){ S.total=nt; save(); render(); } else { toast('That total is below your locked must-haves.'); render(); } },
+  total:()=>{ save(); flexBase=null; render(); },
+  amount:t=>{ const c=S.cats.find(x=>x.id===t.dataset.id); c.amount=Math.max(0,Math.round(fromDisp(t.value))); save(); render(); },
+  paid:t=>{ S.payments.find(p=>p.id===t.dataset.id).paid=t.checked; save(); render(); },
+  vstatus:t=>{ S.vendors.find(v=>v.id===t.dataset.id).status=+t.value; save(); render(); },
+  rsvp:t=>{ S.guestList.find(g=>g.id===t.dataset.id).rsvp=t.value; save(); render(); },
+  travel:t=>{ S.guestList.find(g=>g.id===t.dataset.id).travel=t.value; save(); render(); },
+  ideaSort:t=>{ ideaSort=t.value; render(); },
+  date:t=>{ if(!t.value) return; const old=S.date; const shift=daysBetween(old,t.value); S.tasks.forEach(x=>{ const d=parseD(x.due); d.setDate(d.getDate()+shift); x.due=isoOf(d); }); S.date=t.value; save(); render(); toast(`Date set to ${fmtD(S.date)}. The checklist moved with it.`); },
+  dateConf:t=>{ S.dateConfirmed=t.checked; save(); render(); },
+  guestsDone:()=>{ save(); render(); },
+  rate:t=>{ const v=+t.value; if(v>0){ S.rate=v; save(); render(); toast('Exchange rate updated.'); } },
+  eventChk:t=>{ S.events.find(e=>e.id===t.dataset.id).on=t.checked; save(); render(); },
+  upload:t=>addFiles(t.files)
+};
+const I={
+  total:t=>{ if(!flexBase) flexBase=Object.fromEntries(activeCats().map(c=>[c.id,c.amount])); const nt=+t.value; if(rebalance(nt,flexBase)){ S.total=nt; refreshBudgetNumbers(); } },
+  guests:t=>{ S.guests=+t.value; $('#gOut').textContent=S.guests; }
+};
+const F={
+  task:f=>{ const d=new FormData(f); S.tasks.push({id:uid(),title:d.get('title'),due:d.get('due'),who:d.get('who'),cat:d.get('cat'),done:false}); save(); render(); toast('Task added.'); },
+  cat:f=>{ const d=new FormData(f); S.cats.push({id:uid(),name:d.get('name'),amount:Math.round(fromDisp(d.get('amount'))),locked:false,event:d.get('event')}); save(); render(); toast('Category added. Check the status line.'); },
+  pay:f=>{ const d=new FormData(f); S.payments.push({id:uid(),label:d.get('label'),amount:Math.round(fromDisp(d.get('amount'))),due:d.get('due'),cat:d.get('cat'),paid:false}); save(); render(); toast('Payment added.'); },
+  vendor:f=>{ const d=new FormData(f); S.vendors.unshift({id:uid(),name:d.get('name'),cat:d.get('cat'),status:+d.get('status'),quote:Math.round(fromDisp(d.get('quote'))),contact:d.get('contact'),notes:d.get('notes')}); save(); render(); toast('Vendor added.'); },
+  idea:f=>{ const d=new FormData(f); const url=(d.get('url')||'').trim(); if(!url){ toast('Paste a link, or use Upload photos.'); return; } S.ideas.unshift({id:uid(),title:d.get('title')||'Saved link',tag:d.get('tag'),kind:'link',url,votes:isCouple()?{[viewer]:true}:{},by:viewer}); save(); render(); toast('Link saved to the board.'); },
+  guest:f=>{ const d=new FormData(f); S.guestList.push({id:uid(),name:d.get('name'),party:Math.max(1,+d.get('party')||1),side:d.get('side'),rsvp:'Pending',travel:'Not yet'}); save(); render(); toast('Guest added.'); },
+  note:f=>{ const d=new FormData(f); S.notes.push({id:uid(),type:d.get('type'),text:d.get('text'),by:viewer,date:todayISO()}); save(); render(); toast('Saved.'); }
+};
+function addFiles(files){
+  const imgs=[...files].filter(f=>f.type.startsWith('image/')); if(!imgs.length) return;
+  const title=$('#niTitle')?.value||'', tag=$('#niTag')?.value||'Other';
+  let n=0;
+  imgs.forEach(file=>{ const r=new FileReader(); r.onload=()=>{ shrink(r.result,1200).then(src=>{ S.ideas.unshift({id:uid(),title:title||file.name.replace(/\.[^.]+$/,''),tag,kind:'image',src,votes:isCouple()?{[viewer]:true}:{},by:viewer}); if(++n===imgs.length){ const ok=save(); render(); toast(ok?`${n} photo${n>1?'s':''} added.`:'Added for this session. The browser is out of space to keep them.'); } }); }; r.readAsDataURL(file); });
+}
+function shrink(dataUrl,max){ return new Promise(res=>{ const im=new Image(); im.onload=()=>{ const k=Math.min(1,max/Math.max(im.width,im.height)); const c=document.createElement('canvas'); c.width=Math.round(im.width*k); c.height=Math.round(im.height*k); c.getContext('2d').drawImage(im,0,0,c.width,c.height); try{ res(c.toDataURL('image/jpeg',.82)) }catch(e){ res(dataUrl) } }; im.onerror=()=>res(dataUrl); im.src=dataUrl; }); }
+function bindDrop(){ const z=$('#dropZone'); if(!z) return;
+  ['dragenter','dragover'].forEach(ev=>z.addEventListener(ev,e=>{ e.preventDefault(); z.classList.add('over'); }));
+  ['dragleave','drop'].forEach(ev=>z.addEventListener(ev,e=>{ e.preventDefault(); z.classList.remove('over'); }));
+  z.addEventListener('drop',e=>addFiles(e.dataTransfer.files)); }
+
+document.addEventListener('click',e=>{ const t=e.target.closest('[data-act]'); if(t && A[t.dataset.act]) A[t.dataset.act](t,e); else if(!e.target.closest('#moreSheet,[data-act="more"]')) { if(!$('#moreSheet').hidden){ $('#moreSheet').hidden=true; navHTML(); } } });
+document.addEventListener('change',e=>{ const t=e.target.closest('[data-chg]'); if(t && C[t.dataset.chg]) C[t.dataset.chg](t,e); else if(t && t.dataset.inp && C[t.dataset.inp]) C[t.dataset.inp](t,e); });
+document.addEventListener('input',e=>{ const t=e.target.closest('[data-inp]'); if(t && I[t.dataset.inp]) I[t.dataset.inp](t,e); });
+document.addEventListener('submit',e=>{ const f=e.target.closest('form[data-form]'); if(f){ e.preventDefault(); F[f.dataset.form](f); } });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape' && !$('#moreSheet').hidden){ $('#moreSheet').hidden=true; navHTML(); } });
+window.addEventListener('hashchange',()=>{ const h=location.hash.slice(1); if(ROUTES.some(r=>r[0]===h) && h!==route) go(h); });
+
+render();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+{
+  "app": {
+    "plannerLabel": "Wedding planner",
+    "skip": "Skip to content",
+    "place": "Cartagena, Colombia",
+    "venue": "Hacienda courtyard",
+    "sideDate": "Cartagena, Colombia · {{date}}",
+    "targetSuffix": " (target)",
+    "sideFootMock": "Example data. Changes last until you reload. Connect Supabase to sync between you, Thuraya and your planner.",
+    "loading": "Loading your wedding…",
+    "loadError": "We couldn't load your wedding data. Check your connection, then reload the page.",
+    "reload": "Reload"
+  },
+  "nav": {
+    "sections": "Sections",
+    "home": "Home",
+    "checklist": "Checklist",
+    "budget": "Budget",
+    "vendors": "Vendors",
+    "inspiration": "Inspiration",
+    "inspirationShort": "Ideas",
+    "guests": "Guests",
+    "notes": "Notes",
+    "details": "Wedding details",
+    "more": "More"
+  },
+  "topbar": {
+    "currency": "Currency",
+    "account": "Account menu for {{name}}",
+    "signedInAs": "Signed in as",
+    "roleOwner": "Owner: full access",
+    "rolePlanner": "Planner: the budget is view-only",
+    "signOut": "Sign out",
+    "signOutMock": "Sign-in arrives with Supabase. With example data there's nothing to sign out of.",
+    "language": "Language"
+  },
+  "home": {
+    "weddingOf": "The wedding of",
+    "confirmed": "Confirmed",
+    "target": "Target date",
+    "daysToGo": "days to go",
+    "budgetPlanned": "Budget planned",
+    "budgetOf": "of {{total}} · {{paid}} paid",
+    "budgetBar": "{{pct}}% of budget planned",
+    "checklist": "Checklist",
+    "tasksDone": "tasks done",
+    "tasksBar": "{{pct}}% of tasks done",
+    "guests": "Guests",
+    "guestsPlanned": "{{n}} planned",
+    "guestsSub": "{{invited}} on the list · {{yes}} said yes",
+    "guestsBar": "{{yes}} of {{target}} confirmed",
+    "suggestions": "Suggestions",
+    "suggestionsSoon": "Suggestions based on your budget, dates and checklist show up here.",
+    "upNext": "Up next",
+    "fullChecklist": "Full checklist",
+    "allCaughtUp": "All caught up.",
+    "overdue": "Overdue · ",
+    "payments": "Upcoming payments",
+    "noPayments": "No payments scheduled.",
+    "vision": "Our vision",
+    "visionTitle": "A hacienda courtyard, soft lights, lots of flowers and color",
+    "openBoard": "Open board",
+    "visionNote": "Ideas you both love show up here."
+  },
+  "sections": {
+    "checklist": {
+      "title": "Checklist",
+      "intro": "A month-by-month plan for a Cartagena destination wedding, counted back from {{date}}. Change the date in Wedding details and every task moves with it."
+    },
+    "budget": {
+      "title": "Budget",
+      "intro": "Lock your must-haves. When the total moves up or down, everything unlocked scales to fit."
+    },
+    "vendors": {
+      "title": "Vendors",
+      "intro": "Track every vendor from first message to final payment. Most Cartagena vendors reply fastest on WhatsApp."
+    },
+    "inspiration": {
+      "title": "Inspiration",
+      "intro": "Upload photos, paste Pinterest or Google Images links, and heart the ones you love. Ideas you both heart go to the top of your vision."
+    },
+    "guests": {
+      "title": "Guests",
+      "intro": "You're planning for {{n}} guests. Track RSVPs and who has booked travel to Cartagena."
+    },
+    "notes": {
+      "title": "Notes & decisions",
+      "intro": "One place for what you've agreed, open questions, and anything you don't want to lose."
+    },
+    "details": {
+      "title": "Wedding details",
+      "intro": "The basics everything else is built on. Changing the date moves the whole checklist."
+    },
+    "comingSoon": "This screen is being built. {{summary}}",
+    "summary": {
+      "checklist": "{{done}} of {{count}} tasks done.",
+      "budget": "{{planned}} planned across {{count}} categories.",
+      "vendors": "{{count}} vendors tracked.",
+      "inspiration": "{{count}} ideas on the board.",
+      "guests": "{{people}} people across {{count}} parties.",
+      "notes": "{{count}} entries.",
+      "details": "Date, guest count, exchange rate, events and access."
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "That link doesn't match a page in your planner.",
+    "home": "Go to Home"
+  }
+}

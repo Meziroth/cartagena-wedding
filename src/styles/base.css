@@ -1,0 +1,18 @@
+/* Base elements and utilities. */
+html,body{height:100%}
+body{margin:0;background:var(--plaster);color:var(--ink);font:16px/1.5 var(--body);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--plaster)}
+*{box-sizing:border-box}
+h1,h2,h3{font-family:var(--display);font-weight:500;text-wrap:balance;margin:0;line-height:1.15}
+h2{font-size:clamp(1.6rem,1.2rem + 1.5vw,2.2rem)}
+h3{font-size:1.2rem}
+p{margin:0}
+a{color:var(--terracotta)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--bougain);outline-offset:2px;border-radius:6px}
+.num{font-variant-numeric:tabular-nums}
+.label{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.muted{color:var(--muted)}
+[hidden]{display:none!important}
+.view:focus{outline:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}

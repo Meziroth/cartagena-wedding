@@ -1,0 +1,43 @@
+/* App shell: sidebar on desktop, top bar + bottom tab bar on phones. */
+.app{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100%}
+.side{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:20px;padding:28px 18px 20px max(18px,env(safe-area-inset-left,0px));border-right:1px solid var(--line);background:var(--surface);overflow:auto}
+.mono{font-family:var(--display);font-style:italic;font-size:1.9rem;line-height:1}
+.mono small{display:block;font-family:var(--body);font-style:normal;font-size:.8rem;color:var(--muted);margin-top:8px;letter-spacing:.02em}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;text-decoration:none;color:var(--ink);font-weight:500;min-height:44px}
+.nav a:hover{background:var(--sunk)}
+.nav a[aria-current="page"]{background:var(--sunk);color:var(--terracotta);font-weight:700}
+.nav svg{flex:none}
+.side-foot{margin-top:auto;display:flex;flex-direction:column;gap:12px;font-size:.85rem}
+main{min-width:0;padding-block:0 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;align-items:center;gap:12px;justify-content:flex-end;padding:12px 0;background:var(--plaster);border-bottom:1px solid transparent}
+.topbar .mono{font-size:1.35rem;margin-right:auto;display:none}
+.seg{display:inline-flex;background:var(--sunk);border-radius:999px;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;padding:6px 12px;border-radius:999px;font-size:.85rem;font-weight:600;color:var(--muted);cursor:pointer;min-height:36px}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.viewer{display:flex;align-items:center;gap:8px;font-size:.85rem;white-space:nowrap}
+.viewer select{background:var(--sunk);border:0;border-radius:999px;padding:8px 12px;font-weight:600;min-height:40px}
+.tabbar{display:none}
+.more-sheet{position:fixed;left:0;right:0;bottom:calc(64px + env(safe-area-inset-bottom,0px));z-index:41;background:var(--surface);border-top:1px solid var(--line);padding:12px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));display:grid;grid-template-columns:1fr 1fr;gap:8px;box-shadow:0 -10px 30px rgb(0 0 0 / .12)}
+.more-sheet a{display:flex;gap:10px;align-items:center;padding:12px;border-radius:8px;background:var(--sunk);text-decoration:none;color:var(--ink);font-weight:600;min-height:48px}
+
+@media (max-width:860px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .side{display:none}
+  .topbar .mono{display:block}
+  .topbar .viewer span{display:none}
+  main{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+  .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);padding:6px max(6px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(6px,env(safe-area-inset-left,0px))}
+  .tabbar a,.tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;font-size:.7rem;font-weight:600;color:var(--muted);text-decoration:none;background:none;border:0;min-height:52px;cursor:pointer}
+  .tabbar [aria-current="page"]{color:var(--terracotta)}
+}
+
+/* Additions for the React app (not in the prototype). */
+.mono .amp{color:var(--bougain);font-style:normal}
+.skip{position:absolute;left:12px;top:-60px;z-index:70;background:var(--surface);color:var(--ink);padding:10px 16px;border-radius:999px;box-shadow:var(--shadow);font-weight:600}
+.skip:focus{top:calc(12px + env(safe-area-inset-top,0px))}
+.account{position:relative}
+.avatar{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:999px;border:0;background:var(--terracotta);color:var(--terracotta-ink);font-family:var(--display);font-style:italic;font-size:1.2rem;cursor:pointer}
+.menu{position:absolute;right:0;top:calc(100% + 8px);z-index:50;width:min(280px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:16px;display:flex;flex-direction:column;gap:14px}
+.boot{min-height:100vh;display:grid;place-content:center;justify-items:center;gap:16px;padding:24px;text-align:center}

@@ -1,0 +1,28 @@
+/* Design tokens, ported unchanged from reference/prototype.html. Limewash plaster, terracotta, bougainvillea, sage, ochre. */
+:root{
+  --plaster:#F6EEE3;      /* page ground: limewash */
+  --surface:#FFFBF6;      /* cards */
+  --sunk:#EFE3D4;         /* inputs, tracks */
+  --ink:#2A1D18;          /* text */
+  --muted:#6E5A50;        /* secondary text */
+  --line:#E2D3C2;         /* hairlines */
+  --terracotta:#A94B27;   /* primary action */
+  --terracotta-ink:#FFF7F0;
+  --bougain:#B8226A;      /* highlight / hearts */
+  --sage:#5F7350;         /* done / good */
+  --ochre:#B07B12;        /* warnings, candle light */
+  --alert:#B3261E;
+  --tile:#A94B27;
+  --shadow:0 1px 2px rgb(42 29 24 / .06), 0 6px 20px rgb(42 29 24 / .06);
+  --display:"Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --body:"Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --plaster:#1B1412; --surface:#251C19; --sunk:#30251F; --ink:#F4E9DD; --muted:#BCA898; --line:#3D2F28;
+  --terracotta:#E0784F; --terracotta-ink:#1B1412; --bougain:#EE6AA6; --sage:#A5B98F; --ochre:#E6B95A; --alert:#F08A80; --tile:#E0784F;
+  --shadow:0 1px 2px rgb(0 0 0 / .3), 0 8px 24px rgb(0 0 0 / .25); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --plaster:#1B1412; --surface:#251C19; --sunk:#30251F; --ink:#F4E9DD; --muted:#BCA898; --line:#3D2F28;
+  --terracotta:#E0784F; --terracotta-ink:#1B1412; --bougain:#EE6AA6; --sage:#A5B98F; --ochre:#E6B95A; --alert:#F08A80; --tile:#E0784F;
+  --shadow:0 1px 2px rgb(0 0 0 / .3), 0 8px 24px rgb(0 0 0 / .25); color-scheme:dark}
