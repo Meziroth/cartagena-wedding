@@ -31,6 +31,17 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm test
+      - name: Browser and accessibility tests (Playwright + axe, phone and desktop sizes)
+        run: |
+          npx playwright install --with-deps chromium
+          npm run e2e
+      - name: Keep the Playwright report when something fails
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: test-results
+          retention-days: 7
       - name: Check the Supabase settings are there
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}

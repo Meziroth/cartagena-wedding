@@ -16,7 +16,7 @@
 .icon-btn:hover{background:var(--sunk);color:var(--ink)}
 .icon-btn:disabled{opacity:.4;cursor:not-allowed}
 .pill{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:999px;font-size:.75rem;font-weight:700;background:var(--sunk);color:var(--muted);white-space:nowrap}
-.pill.sage{color:var(--sage)} .pill.ochre{color:var(--ochre)} .pill.alert{color:var(--alert)} .pill.pink{color:var(--bougain)} .pill.terra{color:var(--terracotta)}
+.pill.sage{color:var(--sage)} .pill.ochre{color:var(--ochre-text)} .pill.alert{color:var(--alert)} .pill.pink{color:var(--bougain)} .pill.terra{color:var(--terracotta)}
 .field{display:flex;flex-direction:column;gap:6px;min-width:0}
 .field label{font-size:.82rem;font-weight:600;color:var(--muted)}
 input[type=text],input[type=number],input[type=date],input[type=url],input[type=email],input[type=password],input[type=search],select,textarea{background:var(--sunk);border:1px solid transparent;border-radius:8px;padding:10px 12px;min-height:44px;width:100%;min-width:0}
@@ -58,3 +58,6 @@ details.add.card[open]>summary{margin-bottom:14px}
 .switch:checked::after{transform:translateX(18px)}
 .switch:disabled{opacity:.5;cursor:not-allowed}
 @media (prefers-reduced-motion:reduce){.switch,.switch::after{transition:none}}
+
+/* Offline banner. */
+.banner.offline{border-left:4px solid var(--alert);margin-bottom:-12px}

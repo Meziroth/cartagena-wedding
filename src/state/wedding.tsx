@@ -2,6 +2,7 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDataset } from '../data/queries';
+import { useRealtime } from '../data/realtime';
 import type { Dataset } from '../mock/mockData';
 import type { Member } from '../types';
 import { CurrencyProvider } from './currency';
@@ -28,9 +29,11 @@ export function Loading() {
 }
 
 export function WeddingProvider({ me, onSignOut, children }: { me: Member; onSignOut?: () => void; children: ReactNode }) {
-  const data = useDataset(me.wedding_id);
+  const data = useDataset(me.wedding_id, me.user_id);
+  useRealtime(me.wedding_id, me.user_id);
 
-  if (data.isError) return <LoadError onSignOut={onSignOut} />;
+  // With a saved copy, a failed refresh (say, offline) keeps showing it; the offline banner explains.
+  if (data.isError && !data.data) return <LoadError onSignOut={onSignOut} />;
   if (!data.data) return <Loading />;
   return (
     <Ctx.Provider value={{ data: data.data, me, isOwner: me.role === 'owner' }}>

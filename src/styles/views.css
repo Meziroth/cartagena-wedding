@@ -17,7 +17,7 @@
 /* suggestions */
 .sugg{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:start;padding:14px 0;border-top:1px solid var(--line)}
 .sugg:first-child{border-top:0;padding-top:0}
-.sugg .dot{width:34px;height:34px;border-radius:999px;display:grid;place-items:center;background:var(--sunk);color:var(--ochre)}
+.sugg .dot{width:34px;height:34px;border-radius:999px;display:grid;place-items:center;background:var(--sunk);color:var(--ochre-text)}
 .sugg[data-tone=alert] .dot{color:var(--alert)}
 .sugg[data-tone=tip] .dot{color:var(--sage)}
 .sugg h4{margin:0 0 4px;font-size:.98rem}

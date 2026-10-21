@@ -1,5 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
+import type { Dataset } from '../mock/mockData';
+import type { Member } from '../types';
+import { readCache, writeCache } from './offlineCache';
 import { dataSource, type Bucket } from './source';
+
+// Bump when the cached shape changes, so an old copy is never read as new.
+const CACHE_VERSION = 2;
 
 export const qk = {
   me: (userId: string) => ['me', userId] as const,
@@ -7,15 +13,35 @@ export const qk = {
   canSetUp: ['canSetUp'] as const,
 };
 
-export const useMe = (userId: string) =>
-  useQuery({ queryKey: qk.me(userId), queryFn: () => dataSource.currentMember(userId) });
-
-export const useDataset = (weddingId: string | undefined) =>
-  useQuery({
-    queryKey: qk.dataset(weddingId ?? ''),
-    queryFn: () => dataSource.loadDataset(weddingId!),
-    enabled: !!weddingId,
+// Both start from this device's last copy (if any) and refresh from the server straight away.
+export const useMe = (userId: string) => {
+  const cached = readCache<Member | null>(userId, `me-v${CACHE_VERSION}`);
+  return useQuery({
+    queryKey: qk.me(userId),
+    queryFn: async () => {
+      const me = await dataSource.currentMember(userId);
+      writeCache(userId, `me-v${CACHE_VERSION}`, me);
+      return me;
+    },
+    initialData: cached?.value ?? undefined,
+    initialDataUpdatedAt: cached?.savedAt,
   });
+};
+
+export const useDataset = (weddingId: string, userId: string) => {
+  const part = `dataset-v${CACHE_VERSION}:${weddingId}`;
+  const cached = readCache<Dataset>(userId, part);
+  return useQuery({
+    queryKey: qk.dataset(weddingId),
+    queryFn: async () => {
+      const d = await dataSource.loadDataset(weddingId);
+      writeCache(userId, part, d);
+      return d;
+    },
+    initialData: cached?.value,
+    initialDataUpdatedAt: cached?.savedAt,
+  });
+};
 
 export const useCanSetUp = (enabled: boolean) =>
   useQuery({ queryKey: qk.canSetUp, queryFn: () => dataSource.canSetUpWedding(), enabled });

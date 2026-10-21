@@ -1,6 +1,7 @@
 // Who is signed in. With example data, that's always Nick; with Supabase it follows the real session.
 import { useQueryClient } from '@tanstack/react-query';
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { clearCache } from '../data/offlineCache';
 import { authErrorKey, type AuthErrorKey } from '../lib/authErrors';
 import { disablePush } from '../lib/push';
 import { ARRIVED_FOR, supabase } from '../lib/supabase';
@@ -41,6 +42,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (next?.id !== userId.current) {
       // Never show one person's cached data to the next.
       queryClient.clear();
+      // Signing out also removes the plan saved on this device for offline use.
+      if (userId.current && !next) clearCache(userId.current);
       userId.current = next?.id ?? null;
       setUser(next);
     }

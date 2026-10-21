@@ -627,5 +627,11 @@
       "no": "No",
       "total": "Total budget"
     }
+  },
+  "offline": {
+    "title": "You’re offline.",
+    "body": "You can keep looking and making changes; they’ll be saved when the connection returns.",
+    "waiting_one": "{{count}} change is waiting and will be saved when the connection returns.",
+    "waiting_other": "{{count}} changes are waiting and will be saved when the connection returns."
   }
 }

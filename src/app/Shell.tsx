@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { Icon, TileDefs } from '../components/Icon';
+import { OfflineBanner } from '../components/OfflineBanner';
 import { dataSource } from '../data/source';
 import { setLang, type Lang } from '../i18n';
 import { fmtD } from '../lib/dates';
@@ -96,7 +97,7 @@ export function Shell() {
   useEffect(() => { void resyncPush(data.wedding.id, me.user_id).catch(() => {}); }, [data.wedding.id, me.user_id]);
   const location = useLocation();
   const view = useRef<HTMLDivElement>(null);
-  const first = useRef(true);
+  const lastPath = useRef(location.pathname);
   const [moreOpen, setMoreOpen] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
   const moreBtn = useRef<HTMLButtonElement>(null);
@@ -107,7 +108,9 @@ export function Shell() {
   // On navigation: close the sheet, jump to the top and move focus to the new screen.
   useEffect(() => {
     setMoreOpen(false);
-    if (first.current) { first.current = false; return; }
+    // Only on a real route change (not the first render, which React may run twice in development).
+    if (lastPath.current === location.pathname) return;
+    lastPath.current = location.pathname;
     window.scrollTo(0, 0);
     view.current?.focus({ preventScroll: true });
   }, [location.pathname]);
@@ -151,6 +154,7 @@ export function Shell() {
             <AccountMenu />
           </div>
           <div className="wrap view" ref={view} tabIndex={-1}>
+            <OfflineBanner />
             <Outlet />
           </div>
         </main>

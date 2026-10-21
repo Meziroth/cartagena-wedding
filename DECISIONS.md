@@ -92,3 +92,17 @@ Choices made without asking, per CLAUDE_CODE_PROMPT.md. Newest at the bottom.
   - *Calendar (.ics)*: the wedding day, unpaid payments and open tasks as all-day events. RFC 5545: CRLF line endings, escaped text, lines folded at 75 bytes, and UIDs from the row ids (`task-<id>@nick-thuraya-wedding`), so importing again updates the same events.
   - *Todoist (CSV)*: open tasks with a section per month, checked against Todoist's help page "Import or export a project as a CSV file". Priority is 4 (Todoist's lowest, i.e. no priority; an empty cell would make every task p1). The time zone is left empty so Todoist uses the account's own, instead of the prototype's fixed New York.
 - **Todoist sync** is a disabled button with a "coming later" note and a TODO: the personal API token would be stored encrypted and used only from an Edge Function, never in the browser.
+
+## Phase 7: live sync, offline, browser tests, deploy
+
+- **Live sync**: one Supabase realtime channel per wedding listens to all twelve tables (filtered to the wedding; `idea_votes` has no wedding column, so RLS filters it). Any change refetches the plan, at most once per 300 ms burst, and not while this device is still saving its own edits (those refetch when they finish). A change to `members` also re-checks the signed-in person's role. After a dropped connection the channel rejoins and catches up.
+- **Offline**:
+  - A banner says you're offline and how many changes are waiting.
+  - Edits made offline show at once and are saved, in order, when the connection returns (TanStack Query pauses and then resumes them).
+  - The last plan this device loaded is kept in `localStorage` per person, so the Home Screen app opens without signal. It's removed on sign-out. A failed refresh keeps showing that copy instead of an error.
+  - The service worker caches the app itself: the page network-first, the hashed build files cache-first. Supabase data isn't cached by the service worker.
+- **Contrast**: axe found three light-theme colours just under 4.5:1 for text on the beige background. Terracotta and sage are now a shade deeper (`#A44926`, `#576A4A`; the difference is hard to see). Ochre needed a much darker shade, so it got a separate `--ochre-text` (`#865D0E`) for text and icons, and the original ochre stays for fills and borders. Dark theme already passed.
+- **Focus on navigation** now compares with the previous route instead of a "first render" flag. React's development mode runs effects twice, which moved focus into the page on load and made the skip link unreachable by Tab in development.
+- **Browser tests** (`npm run e2e`, Playwright): every screen at 390×844 and 1280×800 must render, not scroll sideways, have no console errors, and pass axe (WCAG 2.0–2.2 A/AA) with no serious or critical issues; Home and Budget are also checked in the dark theme. Flows: budget chips, rebalance and slider; adding and ticking a task; moving the date; note tags; hearts; dismissing a suggestion; offline editing; the skip link. They run on the example data, so no Supabase account is needed. Locally they use the installed Edge; in CI, Playwright's Chromium.
+- **The Pages workflow** now runs lint, unit tests and the browser tests before building; a failure stops the deploy and keeps the test report for a week.
+- **Not covered by automated tests**: realtime between two signed-in people and push notifications on a real phone, which need real accounts. Check them by hand with two devices.

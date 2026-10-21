@@ -13,7 +13,7 @@ function Membership({ userId, children }: { userId: string; children: ReactNode 
   const canSetUp = useCanSetUp(notMember);
   const onSignOut = () => void signOut();
 
-  if (me.isError || canSetUp.isError) return <LoadError onSignOut={onSignOut} />;
+  if ((me.isError && me.data === undefined) || canSetUp.isError) return <LoadError onSignOut={onSignOut} />;
   if (me.isPending || (notMember && canSetUp.isPending)) return <Loading />;
   if (!me.data) return <NoMembership canSetUp={canSetUp.data === true} />;
   return <WeddingProvider me={me.data} onSignOut={onSignOut}>{children}</WeddingProvider>;
