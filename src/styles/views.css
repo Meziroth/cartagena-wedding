@@ -110,3 +110,7 @@ input[type=range]{width:100%;accent-color:var(--terracotta);min-height:32px}
 .note{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;padding:14px 0;border-top:1px solid var(--line)}
 .note:first-child{border-top:0}
 .note .when{font-size:.8rem;color:var(--muted)}
+
+/* Additions for the React app. */
+.contract{margin-top:14px;gap:8px}
+.cat .confirm,.pay .confirm,.task .confirm,.note .confirm{grid-column:1 / -1;justify-content:flex-start}

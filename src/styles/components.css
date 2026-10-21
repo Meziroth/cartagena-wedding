@@ -42,3 +42,9 @@ details.add[open]>summary{margin-bottom:14px}
   .idea:hover{transform:translateY(-2px)}
   .bar i{transition:width .35s ease}
 }
+
+/* Additions for the React app. */
+.confirm{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px;justify-content:flex-end}
+.mt{margin-top:16px}
+details.add.card>summary{margin:0}
+details.add.card[open]>summary{margin-bottom:14px}

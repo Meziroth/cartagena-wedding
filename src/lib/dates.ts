@@ -37,3 +37,6 @@ export const minusMonths = (iso: string, m: number): string => {
   if (m % 1) d.setDate(d.getDate() - Math.round((m % 1) * 30));
   return isoOf(d);
 };
+
+/** A server timestamp (ISO with time) → the local calendar date it falls on. */
+export const localDate = (timestamp: string): string => isoOf(new Date(timestamp));

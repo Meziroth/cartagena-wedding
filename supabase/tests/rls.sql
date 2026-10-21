@@ -136,6 +136,10 @@ begin
   perform rls_test.refused($q$insert into public.members (wedding_id, user_id, email, display_name, role)
                               select id, rls_test.uid('stranger'), 'x', 'x', 'owner' from public.weddings$q$,
                            'planner can''t invite people');
+  perform rls_test.refused(format($q$select public.save_budget(%L, 1, '{}')$q$, (select id from public.weddings)),
+                           'planner can''t save the budget through save_budget()');
+  perform rls_test.refused(format($q$select public.set_wedding_date(%L, '2028-02-05')$q$, (select id from public.weddings)),
+                           'planner can''t move the date through set_wedding_date()');
 end $$;
 
 reset role;
@@ -187,6 +191,30 @@ begin
                            'an owner can''t heart on someone else''s behalf');
   perform rls_test.refused($q$delete from public.budget_categories where is_buffer$q$,
                            'the buffer can''t be deleted');
+end $$;
+
+do $$
+declare
+  w uuid := (select id from public.weddings);
+  venue uuid := (select id from public.budget_categories where key = 'venue');
+  photo uuid := (select id from public.budget_categories where key = 'photo');
+  first_due date := (select due_date from public.tasks where sort = 0);
+begin
+  perform public.save_budget(w, 14000, jsonb_build_object(venue, 2500, photo, 1400));
+  perform rls_test.check((select total_budget_usd from public.weddings) = 14000, 'save_budget sets the total');
+  perform rls_test.check((select amount_usd from public.budget_categories where id = venue) = 2500
+                         and (select amount_usd from public.budget_categories where id = photo) = 1400,
+                         'save_budget sets the category amounts');
+  perform rls_test.refused(format($q$select public.save_budget(%L, null, jsonb_build_object(gen_random_uuid(), 1))$q$, w),
+                           'save_budget refuses categories that don''t exist');
+  perform rls_test.refused(format($q$select public.save_budget(%L, -5, '{}')$q$, w), 'a negative total is refused');
+
+  perform public.set_wedding_date(w, '2028-02-05');
+  perform rls_test.check((select wedding_date from public.weddings) = '2028-02-05', 'set_wedding_date moves the date');
+  perform rls_test.check((select due_date from public.tasks where sort = 0) = first_due + 14,
+                         'set_wedding_date shifts every task by the same number of days');
+  perform public.set_wedding_date(w, '2028-01-22');
+  perform rls_test.check((select due_date from public.tasks where sort = 0) = first_due, 'and back again');
 end $$;
 
 select rls_test.act_as('nick');
