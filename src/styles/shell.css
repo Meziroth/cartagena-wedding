@@ -1,7 +1,7 @@
 /* App shell: sidebar on desktop, top bar + bottom tab bar on phones. */
 .app{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100%}
 .side{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:20px;padding:28px 18px 20px max(18px,env(safe-area-inset-left,0px));border-right:1px solid var(--line);background:var(--surface);overflow:auto}
-.mono{font-family:var(--display);font-style:italic;font-size:1.9rem;line-height:1}
+.mono{font-family:var(--display);font-style:italic;font-weight:500;font-size:1.9rem;line-height:1}
 .mono small{display:block;font-family:var(--body);font-style:normal;font-size:.8rem;color:var(--muted);margin-top:8px;letter-spacing:.02em}
 .nav{display:flex;flex-direction:column;gap:2px}
 .nav a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;text-decoration:none;color:var(--ink);font-weight:500;min-height:44px}
@@ -50,7 +50,7 @@ main{min-width:0;padding-block:0 48px;padding-left:max(16px,env(safe-area-inset-
 .auth svg.tiles{position:absolute;inset:0;width:100%;height:100%;opacity:.09;pointer-events:none}
 .auth svg.tiles .t{fill:var(--tile)}
 .auth-card{position:relative;width:min(420px,100%);background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:clamp(24px,5vw,36px);display:flex;flex-direction:column;gap:16px}
-.auth-names{margin:0;font-family:var(--display);font-style:italic;font-size:2.2rem;line-height:1}
+.auth-names{margin:0;font-family:var(--display);font-style:italic;font-weight:500;font-size:2.2rem;line-height:1}
 .auth-names .amp{color:var(--bougain);font-style:normal}
 .auth-card h1{font-size:1.5rem}
 .auth-card p{margin:0}
