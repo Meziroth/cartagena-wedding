@@ -33,7 +33,11 @@ export interface DataSource {
   uploadFile(bucket: Bucket, weddingId: string, file: Blob, ext: string): Promise<string>;
   /** A short-lived address to open or show a private file. */
   fileUrl(bucket: Bucket, path: string): Promise<string>;
+  /** Short-lived addresses for many private files at once (path → url; unreadable ones are left out). */
+  fileUrls(bucket: Bucket, paths: string[]): Promise<Record<string, string>>;
   deleteFile(bucket: Bucket, path: string): Promise<void>;
+  /** A link's preview title and image, read by the link-preview Edge Function. Never throws. */
+  linkPreview(url: string): Promise<{ title: string | null; image: string | null }>;
   /** Tells the others' phones about a saved change. Best effort: never throws. */
   notify(event: NotifyEvent): Promise<void>;
 }
@@ -90,6 +94,9 @@ function mockSource(): DataSource {
       if (url) URL.revokeObjectURL(url);
       files.delete(path);
     },
+    fileUrls: async (_bucket, paths) => Object.fromEntries(paths.filter((p) => files.has(p)).map((p) => [p, files.get(p)!])),
+    // Example mode has no server to fetch pages, so links show the plain site card.
+    linkPreview: async () => ({ title: null, image: null }),
     notify: async () => {},
   };
 }
@@ -229,6 +236,23 @@ function supabaseSource(sb: SupabaseClient): DataSource {
     deleteFile: async (bucket, path) => {
       const { error } = await sb.storage.from(bucket).remove([path]);
       if (error) throw toChangeError(error);
+    },
+
+    fileUrls: async (bucket, paths) => {
+      if (!paths.length) return {};
+      const { data, error } = await sb.storage.from(bucket).createSignedUrls(paths, 60 * 60);
+      if (error) throw toChangeError(error);
+      return Object.fromEntries((data ?? []).flatMap((x) => (x.signedUrl && x.path ? [[x.path, x.signedUrl] as const] : [])));
+    },
+
+    linkPreview: async (url) => {
+      try {
+        const { data, error } = await sb.functions.invoke<{ title: string | null; image: string | null }>('link-preview', { body: { url } });
+        if (error || !data) return { title: null, image: null };
+        return { title: data.title ?? null, image: data.image ?? null };
+      } catch {
+        return { title: null, image: null };
+      }
     },
 
     notify: async (event) => {

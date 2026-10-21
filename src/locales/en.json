@@ -90,16 +90,6 @@
     "details": {
       "title": "Wedding details",
       "intro": "The basics everything else is built on. Changing the date moves the whole checklist."
-    },
-    "comingSoon": "This screen is being built. {{summary}}",
-    "summary": {
-      "checklist": "{{done}} of {{count}} tasks done.",
-      "budget": "{{planned}} planned across {{count}} categories.",
-      "vendors": "{{count}} vendors tracked.",
-      "inspiration": "{{count}} ideas on the board.",
-      "guests": "{{people}} people across {{count}} parties.",
-      "notes": "{{count}} entries.",
-      "details": "Date, guest count, exchange rate, events and access."
     }
   },
   "notFound": {
@@ -471,5 +461,64 @@
     "testSent": "Test sent. It should arrive in a few seconds.",
     "testTitle": "Notifications are working",
     "testBody": "You’ll hear about new notes and inspiration here."
+  },
+  "ideas": {
+    "addTitle": "Add inspiration",
+    "caption": "Caption",
+    "captionPlaceholder": "e.g. Candles in hurricane glasses",
+    "category": "Category",
+    "link": "Link (Pinterest, Google Images, Instagram)",
+    "saveLink": "Save link",
+    "needLink": "Paste a link, or use Choose photos.",
+    "badLink": "That doesn’t look like a web address. Copy the link from the Share menu and paste it here.",
+    "linkSaved": "Link saved to the board.",
+    "uploadTitle": "Upload photos",
+    "uploadHint": "Choose several at once, or drop them here. They use the caption and category above, and are shrunk to 1600 px before upload.",
+    "choosePhotos": "Choose photos",
+    "uploading": "Uploading {{done}} of {{total}}…",
+    "notImages": "Those files aren’t photos. Choose JPEG, PNG or HEIC images.",
+    "photosAdded_one": "Photo added to the board.",
+    "photosAdded_other": "{{count}} photos added to the board.",
+    "photosUnreadable_one": "One photo couldn’t be read. Try saving it as a JPEG first.",
+    "photosUnreadable_other": "{{count}} photos couldn’t be read. Try saving them as JPEGs first.",
+    "photosPartly": "{{added}} added, {{failed}} couldn’t be uploaded. Try those again.",
+    "filter": "Filter inspiration",
+    "filters": {
+      "All": "All",
+      "Both love": "Both love",
+      "Venue": "Venue",
+      "Florals": "Florals",
+      "Lighting": "Lighting",
+      "Décor": "Décor",
+      "Palette": "Palette",
+      "Attire": "Attire",
+      "Cake": "Cake",
+      "Other": "Other"
+    },
+    "tags": {
+      "Venue": "Venue",
+      "Florals": "Florals",
+      "Lighting": "Lighting",
+      "Décor": "Décor",
+      "Palette": "Palette",
+      "Attire": "Attire",
+      "Cake": "Cake",
+      "Other": "Other"
+    },
+    "sort": "Sort",
+    "sortNew": "Newest",
+    "sortLoved": "Most loved",
+    "none": "Nothing here yet. Add a photo or a link above.",
+    "noMatch": "No ideas match this filter.",
+    "bothLove": "Both love it",
+    "loves": "{{name}} loves this",
+    "notHearted": "{{name}} hasn’t hearted this",
+    "toggleHeart": ". Toggle your heart",
+    "untitled": "Untitled",
+    "photoAlt": "Inspiration photo",
+    "sample": "Sample",
+    "openOriginal": "Open the original",
+    "deleteLabel": "Delete {{title}}",
+    "deleted": "Removed from the board."
   }
 }

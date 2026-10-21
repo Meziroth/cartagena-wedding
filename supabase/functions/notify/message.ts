@@ -42,7 +42,7 @@ export function buildMessage(kind: NotifyKind | 'test', who: string, row: Record
     case 'note_edited':
       return { title: `${who} edited a ${TYPE_WORD[str('type')] ?? 'note'}`, body: clip(str('body')), url: '#/notes', tag: `note-${str('id')}` };
     case 'idea_added':
-      return { title: `${who} added inspiration`, body: clip(str('title') || str('preview_title') || 'A new idea on the board'), url: '#/inspiration', tag: `idea-${str('id')}` };
+      return { title: `${who} added inspiration`, body: clip(str('title') || str('preview_title') || 'A new idea on the board'), url: '#/inspiration', tag: `ideas-${str('created_by')}` }; // a batch of photos replaces, not piles up
     case 'task_done':
       return { title: `${who} checked off a task`, body: clip(str('title')), url: '#/checklist', tag: `task-${str('id')}` };
     case 'test':

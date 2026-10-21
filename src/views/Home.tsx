@@ -1,12 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Icon, TilesBackground } from '../components/Icon';
+import { useFileUrls } from '../data/queries';
 import { paidTotal, plannedTotal } from '../lib/budget';
 import { daysBetween, fmtD, todayISO } from '../lib/dates';
 import { sum } from '../lib/sum';
-import { MOCK_ART } from '../mock/mockData';
 import { useMoney } from '../state/money';
 import { useWedding } from '../state/wedding';
+import { IdeaMedia } from './Inspiration';
 
 const linkCard = { textDecoration: 'none', color: 'inherit' } as const;
 
@@ -30,6 +31,7 @@ export function Home() {
   const loved = ideas
     .filter((i) => owners.length > 0 && owners.every((u) => idea_votes.some((v) => v.idea_id === i.id && v.user_id === u)))
     .slice(0, 4);
+  const lovedUrls = useFileUrls('inspiration', loved.flatMap((i) => (i.storage_path ? [i.storage_path] : [])));
   const pct = (a: number, b: number) => (b ? Math.round((a / b) * 100) : 0);
 
   return (
@@ -136,9 +138,9 @@ export function Home() {
         </div>
         <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill,minmax(min(100%,140px),1fr))', marginTop: 16 }}>
           {loved.map((i) => (
-            // TODO(phase 5): signed URLs for uploaded images and link previews.
-            <div key={i.id} className={MOCK_ART[i.id]?.art} role="img" aria-label={i.title}
-              style={{ borderRadius: 8, overflow: 'hidden', aspectRatio: '1', maxWidth: '100%' }} />
+            <div key={i.id} className="vision-thumb">
+              <IdeaMedia idea={i} square url={i.storage_path ? lovedUrls.data?.[i.storage_path] : undefined} />
+            </div>
           ))}
         </div>
         <p className="muted" style={{ fontSize: '.85rem', marginTop: 10 }}>{t('home.visionNote')}</p>

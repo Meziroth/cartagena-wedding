@@ -8,7 +8,8 @@ import { Details } from '../views/Details';
 import { Guests } from '../views/Guests';
 import { Home } from '../views/Home';
 import { Notes } from '../views/Notes';
-import { NotFound, Section } from '../views/Section';
+import { Inspiration } from '../views/Inspiration';
+import { NotFound } from '../views/NotFound';
 import { Vendors } from '../views/Vendors';
 import { AccessGate } from './AccessGate';
 import { ROUTES, type RouteId } from './routes';
@@ -18,7 +19,7 @@ const SCREENS: Record<Exclude<RouteId, 'home'>, JSX.Element> = {
   checklist: <Checklist />,
   budget: <Budget />,
   vendors: <Vendors />,
-  inspiration: <Section id="inspiration" />,
+  inspiration: <Inspiration />,
   guests: <Guests />,
   notes: <Notes />,
   details: <Details />,

@@ -423,3 +423,7 @@ verify_jwt = true
 # Sends phone notifications about new and edited notes, new inspiration and checked-off tasks.
 [functions.notify]
 verify_jwt = true
+
+# Fetches a saved link's preview (og:title, og:image) for the Inspiration board.
+[functions.link-preview]
+verify_jwt = true
