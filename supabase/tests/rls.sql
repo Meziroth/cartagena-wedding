@@ -4,6 +4,7 @@
 --   * `npm test` runs it in PGlite (Postgres in WebAssembly) against the migrations.
 --   * Paste it into the Supabase SQL editor to check a real project. It needs an EMPTY project
 --     (no wedding set up yet), because setup_wedding() only allows one wedding.
+--     From the terminal: `npx supabase db query --linked -f supabase/tests/rls.sql`.
 -- Any failed check raises an error naming what went wrong. Success ends with "All RLS checks passed".
 
 begin;
