@@ -394,7 +394,34 @@
     "saved": "Saved.",
     "deleted": "Entry deleted.",
     "deleteLabel": "Delete entry",
-    "none": "Nothing here yet."
+    "none": "Nothing here yet.",
+    "editEntry": "Edit entry",
+    "editLabel": "Edit entry",
+    "search": "Search notes",
+    "searchPlaceholder": "Search notes, or #tag",
+    "sortBy": "Sort notes",
+    "sorts": {
+      "created": "Newest first",
+      "edited": "Last edited",
+      "alpha": "A–Z",
+      "tag": "By tag",
+      "type": "By type"
+    },
+    "filterTags": "Filter by tag",
+    "tagFilterLabel": "#{{tag}}, {{count}} notes",
+    "filterByTag": "Show notes tagged #{{tag}}",
+    "tags": "Tags",
+    "addTag": "+ Tag",
+    "addTagLabel": "Add a tag",
+    "tagPlaceholder": "Add a tag, then Enter",
+    "removeTag": "Remove tag #{{tag}}",
+    "edited": "edited {{date}}",
+    "count_one": "{{count}} entry",
+    "count_other": "{{count}} entries",
+    "showing_one": "Showing {{count}} of {{total}}",
+    "showing_other": "Showing {{count}} of {{total}}",
+    "clearFilters": "Clear filters",
+    "noMatch": "No entries match. Try another word or clear the filters."
   },
   "details": {
     "viewOnly": "View only. Only Nick and Thuraya can change the date, guest count, exchange rate and events.",
@@ -417,5 +444,32 @@
     "eventsNote": "Turning an event on adds its budget lines. Rebalance in Budget if it pushes you over.",
     "account": "Your account",
     "signOutNote": "Signs you out on this device. Your plan stays saved."
+  },
+  "push": {
+    "title": "Notifications",
+    "intro": "Get a notification on this device when someone else adds or edits a note, adds inspiration, or checks off a task.",
+    "toggle": "Notifications on this device",
+    "kindsLabel": "Notify me about",
+    "kinds": {
+      "note_created": "New notes",
+      "note_edited": "Edited notes",
+      "idea_added": "New inspiration",
+      "task_done": "Checked-off tasks"
+    },
+    "on": "Notifications are on for this device.",
+    "off": "Notifications turned off for this device.",
+    "saved": "Notification settings saved.",
+    "working": "One moment…",
+    "needsInstall": "On iPhone and iPad, notifications only work from the Home Screen app. In Safari, tap Share, then “Add to Home Screen”, open the planner from there, and turn this on.",
+    "unsupported": "This browser can’t show notifications from websites. Try Safari on iPhone (from the Home Screen), or Chrome, Edge or Firefox.",
+    "needsNewerIos": "Notifications need iOS 16.4 or later. Update your iPhone in Settings → General → Software Update.",
+    "blocked": "Notifications are blocked for this app. On iPhone, open Settings → Notifications → Wedding, and allow them. In a browser, allow notifications in the site settings.",
+    "notConfigured": "Notifications aren’t set up for this site yet. The README explains how to add the keys.",
+    "mockOnly": "Notifications work once the planner is connected to Supabase.",
+    "failed": "Couldn’t turn on notifications. Check your connection and try again.",
+    "test": "Send a test notification",
+    "testSent": "Test sent. It should arrive in a few seconds.",
+    "testTitle": "Notifications are working",
+    "testBody": "You’ll hear about new notes and inspiration here."
   }
 }

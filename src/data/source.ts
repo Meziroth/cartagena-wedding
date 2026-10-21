@@ -2,6 +2,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { supabase } from '../lib/supabase';
 import { buildMockData, type Dataset } from '../mock/mockData';
+import type { NotifyEvent } from '../lib/notifyEvents';
 import type { Member, Role } from '../types';
 import { applyOp, type Op } from './ops';
 
@@ -33,6 +34,8 @@ export interface DataSource {
   /** A short-lived address to open or show a private file. */
   fileUrl(bucket: Bucket, path: string): Promise<string>;
   deleteFile(bucket: Bucket, path: string): Promise<void>;
+  /** Tells the others' phones about a saved change. Best effort: never throws. */
+  notify(event: NotifyEvent): Promise<void>;
 }
 
 /** An error whose message is already written for people, not developers. */
@@ -87,6 +90,7 @@ function mockSource(): DataSource {
       if (url) URL.revokeObjectURL(url);
       files.delete(path);
     },
+    notify: async () => {},
   };
 }
 
@@ -225,6 +229,15 @@ function supabaseSource(sb: SupabaseClient): DataSource {
     deleteFile: async (bucket, path) => {
       const { error } = await sb.storage.from(bucket).remove([path]);
       if (error) throw toChangeError(error);
+    },
+
+    notify: async (event) => {
+      try {
+        const { error } = await sb.functions.invoke('notify', { body: event });
+        if (error) console.warn('Notification not sent', error);
+      } catch (e) {
+        console.warn('Notification not sent', e);
+      }
     },
   };
 }

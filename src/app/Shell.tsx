@@ -6,6 +6,7 @@ import { Icon, TileDefs } from '../components/Icon';
 import { dataSource } from '../data/source';
 import { setLang, type Lang } from '../i18n';
 import { fmtD } from '../lib/dates';
+import { resyncPush } from '../lib/push';
 import es from '../locales/es.json';
 import { useAuth } from '../state/auth';
 import { useCurrency } from '../state/currency';
@@ -89,7 +90,10 @@ function AccountMenu() {
 
 export function Shell() {
   const { t } = useTranslation();
-  const { data } = useWedding();
+  const { data, me } = useWedding();
+
+  // Keep this device's notification subscription known to the server (browsers sometimes replace it).
+  useEffect(() => { void resyncPush(data.wedding.id, me.user_id).catch(() => {}); }, [data.wedding.id, me.user_id]);
   const location = useLocation();
   const view = useRef<HTMLDivElement>(null);
   const first = useRef(true);

@@ -22,6 +22,8 @@ export const MOCK_ART: Record<string, { art: string; shape: string }> = {
   'i-palette': { art: 'art-palette', shape: 'wide' },
 };
 
+const MOCK_NOTE_TAGS: Record<number, string[]> = { 0: ['budget'], 3: ['florals', 'lighting'], 5: ['planner'] };
+
 export interface Dataset {
   wedding: Wedding;
   members: Member[];
@@ -99,8 +101,10 @@ export function buildMockData(): Dataset {
       { id: 'g-3', wedding_id: w, name: 'Aunt Maria', party_size: 1, side: 'Thuraya', rsvp: 'Maybe', travel: 'Not yet', notes: '' },
       { id: 'g-4', wedding_id: w, name: 'College friends', party_size: 6, side: 'Nick', rsvp: 'Pending', travel: 'Not yet', notes: '' },
     ],
+    // A few example tags, so the tag filter has something to show. Real weddings start untagged.
     notes: SEED_NOTES.map(([type, body], i) => ({
-      id: `n-${i + 1}`, wedding_id: w, type, body, created_by: nick, created_at: `2026-10-20T12:00:0${i}Z`,
+      id: `n-${i + 1}`, wedding_id: w, type, body, tags: MOCK_NOTE_TAGS[i] ?? [], created_by: nick,
+      created_at: `2026-10-20T12:00:0${i}Z`, updated_at: `2026-10-20T12:00:0${i}Z`,
     })),
     dismissed_suggestions: [],
   };

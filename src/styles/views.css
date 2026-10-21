@@ -114,3 +114,38 @@ input[type=range]{width:100%;accent-color:var(--terracotta);min-height:32px}
 /* Additions for the React app. */
 .contract{margin-top:14px;gap:8px}
 .cat .confirm,.pay .confirm,.task .confirm,.note .confirm{grid-column:1 / -1;justify-content:flex-start}
+
+/* Notes: search, sort and quiet tags. Tags are plain muted text; hit areas grow invisibly to 44px. */
+.notes-tools{display:flex;gap:10px;flex-wrap:wrap}
+.notes-search{flex:1 1 220px}
+.notes-sort{flex:0 0 auto}
+.notes-head{margin-bottom:4px}
+.notes-head p{margin:0}
+.note-body{white-space:pre-wrap;overflow-wrap:anywhere}
+.note-actions{display:flex;align-items:center;gap:2px;flex-wrap:wrap;justify-content:flex-end}
+.note.editing{display:block}
+.note-tags{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:2px 12px}
+.tag-inline,.tag-btn,.tag-add,.tag-token button{position:relative;background:none;border:0;padding:0;cursor:pointer;font:inherit;font-weight:600;color:var(--muted)}
+.tag-inline{font-size:.8rem;line-height:1.5}
+.tag-inline::after,.tag-token button::after{content:"";position:absolute;inset:-12px -6px}
+.tag-inline:hover,.tag-btn:hover,.tag-add:hover{color:var(--terracotta)}
+.tag-inline[aria-pressed="true"],.tag-btn[aria-pressed="true"]{color:var(--terracotta);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.tag-filter{display:flex;flex-wrap:wrap;align-items:center;gap:0 14px;margin-top:-10px}
+.tag-btn{font-size:.85rem;min-height:44px}
+.tag-count{margin-left:4px;font-size:.72rem;font-weight:500;opacity:.75}
+.tag-editor{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;min-height:24px}
+.tag-editor .note-tags{margin:0}
+.tag-token{display:inline-flex;align-items:center;gap:2px;font-size:.82rem;font-weight:600;color:var(--muted)}
+.tag-token button{width:22px;height:22px;border-radius:999px;font-size:1rem;line-height:1}
+.tag-token button:hover{color:var(--alert)}
+.tag-add{font-size:.85rem;min-height:44px}
+.tag-input input{background:transparent;border:0;border-bottom:1px dashed var(--line);border-radius:0;min-height:40px;padding:4px 2px;width:min(240px,100%);font-size:.88rem}
+.tag-input input:focus{box-shadow:none;border-bottom:2px solid var(--terracotta)}
+.note{align-items:start}
+.note>.pill{align-self:start;margin-top:2px}
+@media (max-width:560px){
+  .note{grid-template-columns:minmax(0,1fr) auto;row-gap:6px}
+  .note>.pill{grid-row:1;grid-column:1;justify-self:start;align-self:center}
+  .note>.note-actions{grid-row:1;grid-column:2}
+  .note>div:not(.note-actions){grid-row:2;grid-column:1 / -1}
+}

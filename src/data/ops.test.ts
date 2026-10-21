@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { filterTasks, groupByMonth, monthsOut } from '../lib/checklist';
+import { notifyEventFor } from '../lib/notifyEvents';
 import { buildMockData } from '../mock/mockData';
 import { applyOp, insert, remove, update } from './ops';
 
@@ -52,5 +53,20 @@ describe('checklist', () => {
     expect(groups.map(([m]) => m)).toEqual([...groups.map(([m]) => m)].sort());
     expect(monthsOut('2027-01', '2028-01-22')).toBe(12);
     expect(monthsOut('2028-01', '2028-01-22')).toBe(0);
+  });
+});
+
+describe('notifications', () => {
+  it('notifies for new and edited notes, new ideas and ticked tasks only', () => {
+    const d = buildMockData();
+    const n = d.notes[0];
+    expect(notifyEventFor(insert('notes', { ...n, id: 'n-new' }))).toEqual({ kind: 'note_created', id: 'n-new' });
+    expect(notifyEventFor(update('notes', n.id, { body: 'x' }))).toEqual({ kind: 'note_edited', id: n.id });
+    expect(notifyEventFor(update('notes', n.id, { tags: ['venue'] }))).toEqual({ kind: 'note_edited', id: n.id });
+    expect(notifyEventFor(update('tasks', 't-1', { is_done: true }))).toEqual({ kind: 'task_done', id: 't-1' });
+    expect(notifyEventFor(update('tasks', 't-1', { is_done: false }))).toBeNull();
+    expect(notifyEventFor(insert('ideas', { ...d.ideas[0], id: 'i-new' }))).toEqual({ kind: 'idea_added', id: 'i-new' });
+    expect(notifyEventFor(remove('notes', n.id))).toBeNull();
+    expect(notifyEventFor(update('guests', 'g-1', { rsvp: 'Yes' }))).toBeNull();
   });
 });

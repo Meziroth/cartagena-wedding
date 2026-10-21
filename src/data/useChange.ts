@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Dataset } from '../mock/mockData';
+import { notifyEventFor } from '../lib/notifyEvents';
 import { useToast } from '../state/toast';
 import { useWedding } from '../state/wedding';
 import { applyOp, type Op } from './ops';
@@ -39,7 +40,12 @@ export function useChange(): (ops: Op | Op[], success?: string) => void {
     mutationKey: MUTATION_KEY,
     scope: { id: 'wedding-changes' }, // saved one at a time, in order
     mutationFn: async ({ ops }: Vars) => {
-      for (const op of ops) await dataSource.run(op);
+      for (const op of ops) {
+        await dataSource.run(op);
+        // Once saved, let the others know (if it's something they asked to hear about). Never blocks the save.
+        const event = notifyEventFor(op);
+        if (event) void dataSource.notify(event);
+      }
     },
     onError: (e, { before }) => {
       if (before) queryClient.setQueryData(key, before);

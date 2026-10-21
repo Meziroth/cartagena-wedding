@@ -11,6 +11,7 @@ import { useAuth } from '../state/auth';
 import { useToast } from '../state/toast';
 import { useWedding } from '../state/wedding';
 import { Members } from './Members';
+import { Notifications } from './Notifications';
 
 const GUESTS_MIN = 20;
 const GUESTS_MAX = 80;
@@ -110,6 +111,8 @@ export function Details() {
         </section>
 
         <Members />
+
+        <Notifications />
 
         <section className="card stack" aria-labelledby="aH">
           <h3 id="aH">{t('details.account')}</h3>

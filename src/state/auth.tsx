@@ -2,6 +2,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { authErrorKey, type AuthErrorKey } from '../lib/authErrors';
+import { disablePush } from '../lib/push';
 import { ARRIVED_FOR, supabase } from '../lib/supabase';
 import { MOCK_USERS } from '../mock/mockData';
 
@@ -76,6 +77,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signOut = useCallback(async () => {
     if (!supabase) return;
+    // A shared phone shouldn't keep getting notifications meant for whoever signed out.
+    await disablePush().catch(() => {});
     // 'local' signs out this device only, and works offline.
     await supabase.auth.signOut({ scope: 'local' });
   }, []);

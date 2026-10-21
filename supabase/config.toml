@@ -419,3 +419,7 @@ enabled = true
 # Owners invite people from Wedding details. Requires a signed-in user's token; the function checks they're an owner.
 [functions.invite]
 verify_jwt = true
+
+# Sends phone notifications about new and edited notes, new inspiration and checked-off tasks.
+[functions.notify]
+verify_jwt = true

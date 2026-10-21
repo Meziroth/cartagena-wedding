@@ -228,6 +228,59 @@ begin
                            'a wedding can''t lose all its owners');
 end $$;
 
+-- ─── Note tags ─────────────────────────────────────────────────────────────────────────────────
+
+do $$
+begin
+  update public.notes set tags = array['venue', 'Budget'] where body = 'Legal in Colombia?';
+  perform rls_test.check((select tags from public.notes where body = 'Legal in Colombia?') = array['venue', 'Budget'],
+                         'notes take tags');
+  perform rls_test.refused($q$update public.notes set tags = array[repeat('x', 31)]$q$, 'a tag over 30 characters is refused');
+  perform rls_test.refused($q$update public.notes set tags = array['  ']$q$, 'a blank tag is refused');
+  perform rls_test.refused($q$update public.notes set tags = array['a','b','c','d','e','f','g','h','i','j','k']$q$,
+                           'more than 10 tags is refused');
+end $$;
+
+-- ─── Push subscriptions: each person manages only their own devices ────────────────────────────
+
+select rls_test.act_as('planner');
+do $$
+declare w uuid := (select id from public.weddings);
+begin
+  perform public.save_push_subscription(w, 'https://push.example/planner-phone', 'k', 'a', array['note_created']);
+  perform rls_test.check((select count(*) from public.push_subscriptions) = 1, 'planner saves and sees their device');
+  perform rls_test.refused(format($q$select public.save_push_subscription(%L, 'http://insecure.example/x', 'k', 'a', array['note_created'])$q$, w),
+                           'only https push endpoints are accepted');
+  perform rls_test.refused(format($q$select public.save_push_subscription(%L, 'https://push.example/x', 'k', 'a', array['everything'])$q$, w),
+                           'unknown notification kinds are refused');
+end $$;
+
+select rls_test.act_as('nick');
+do $$
+declare w uuid := (select id from public.weddings);
+begin
+  perform rls_test.check((select count(*) from public.push_subscriptions) = 0, 'Nick can''t see the planner''s devices');
+  perform rls_test.check(rls_test.affected($q$delete from public.push_subscriptions$q$) = 0,
+                         'Nick can''t remove the planner''s devices');
+  perform rls_test.refused(format($q$insert into public.push_subscriptions (user_id, wedding_id, endpoint, p256dh, auth)
+                                     values (%L, %L, 'https://push.example/y', 'k', 'a')$q$, rls_test.uid('planner'), w),
+                           'nobody adds devices directly, only through save_push_subscription()');
+  -- The same phone, now signed in as Nick, takes the subscription over.
+  perform public.save_push_subscription(w, 'https://push.example/planner-phone', 'k2', 'a2', array['idea_added']);
+  perform rls_test.check((select user_id from public.push_subscriptions) = rls_test.uid('nick'),
+                         'a shared device''s subscription moves to whoever turned it on last');
+end $$;
+
+select rls_test.act_as('stranger');
+do $$
+begin
+  perform rls_test.check((select count(*) from public.push_subscriptions) = 0, 'stranger sees no devices');
+  perform rls_test.refused(format($q$select public.save_push_subscription(%L, 'https://push.example/z', 'k', 'a', '{}')$q$,
+                                  (select id from public.weddings where false)),
+                           'stranger can''t turn on notifications');
+end $$;
+select rls_test.act_as('nick');
+
 -- ─── Storage: members use their wedding's folder; nobody else can ──────────────────────────────
 
 do $$

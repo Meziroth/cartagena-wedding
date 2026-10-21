@@ -125,8 +125,11 @@ export interface Note {
   wedding_id: string;
   type: NoteType;
   body: string;
+  /** Free-form, made up by the couple and planner. Empty for most notes. */
+  tags: string[];
   created_by: string | null;
   created_at: string;
+  updated_at: string;
 }
 
 export interface DismissedSuggestion {
