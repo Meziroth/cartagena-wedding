@@ -2,6 +2,7 @@
 import { useState, type FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AddDisclosure, DeleteButton } from '../components/Controls';
+import { ExportButton } from '../components/Exports';
 import { insert, remove, update } from '../data/ops';
 import { useChange } from '../data/useChange';
 import { filterTasks, groupByMonth, isOverdue, monthsOut, TASK_AREAS, TASK_FILTERS, type TaskFilter } from '../lib/checklist';
@@ -26,6 +27,10 @@ export function Checklist() {
     <>
       <div className="sec-head">
         <div><h2>{t('sections.checklist.title')}</h2><p className="muted">{t('sections.checklist.intro', { date: fmtD(w.wedding_date) })}</p></div>
+        <div className="row">
+          <ExportButton kind="todoist" label={t('exports.todoistShort')} />
+          <ExportButton kind="ics" />
+        </div>
       </div>
       <div className="card stack">
         <div className="row between"><b className="num">{t('checklist.doneOf', { done, count })}</b><span className="muted num">{pct}%</span></div>

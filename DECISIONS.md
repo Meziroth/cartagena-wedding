@@ -80,3 +80,15 @@ Choices made without asking, per CLAUDE_CODE_PROMPT.md. Newest at the bottom.
 - **Hearts**: each owner has a heart button with their name; only your own can be pressed. The planner sees the hearts but has none. "Both love it" means every owner has hearted the idea. Example artwork keeps its "Sample" label.
 - **Deleting an idea also deletes its photo** from storage.
 - **Photo notifications**: when several photos are added at once, each phone shows one notification that updates, instead of one per photo.
+
+## Phase 6: suggestions and exports
+
+- **Suggestions are `suggestions(data, { today, money, t, canBudget })`** in `src/lib/suggestions.ts`: every rule from the prototype, in its order, with texts from `en.json`. Keys match the prototype's ids. Some include numbers on purpose (`overdue-6`, `pp-40-15000`), so a dismissed one comes back when the situation changes.
+- **Actions**: rebalance, add the unassigned money to the buffer, raise the buffer to 7% (it's held at 7% while the other unlocked categories scale, as in the prototype), open a screen, add a task, or add a question to Notes. Budget actions only show for owners; the planner still sees the suggestion.
+- **Home shows the first four** with a count and "Show all"; the Budget screen shows the budget-related ones, as in the prototype. Dismissing hides a suggestion for everyone in the wedding (`dismissed_suggestions`).
+- **Exports are real downloads**, generated in the browser:
+  - *Everything (JSON)*: every row of every table, with photos and contracts as storage paths.
+  - *Budget (CSV)*: active categories plus the total. Starts with a byte-order mark so Excel reads accents, and cells that would start a spreadsheet formula (`=`, `+`, `-`, `@`) are prefixed with an apostrophe.
+  - *Calendar (.ics)*: the wedding day, unpaid payments and open tasks as all-day events. RFC 5545: CRLF line endings, escaped text, lines folded at 75 bytes, and UIDs from the row ids (`task-<id>@nick-thuraya-wedding`), so importing again updates the same events.
+  - *Todoist (CSV)*: open tasks with a section per month, checked against Todoist's help page "Import or export a project as a CSV file". Priority is 4 (Todoist's lowest, i.e. no priority; an empty cell would make every task p1). The time zone is left empty so Todoist uses the account's own, instead of the prototype's fixed New York.
+- **Todoist sync** is a disabled button with a "coming later" note and a TODO: the personal API token would be stored encrypted and used only from an Edge Function, never in the browser.

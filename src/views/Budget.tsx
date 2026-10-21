@@ -2,9 +2,12 @@
 import { useRef, useState, type FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AddDisclosure, DeleteButton, MoneyInput, ViewOnlyBanner } from '../components/Controls';
+import { ExportButton } from '../components/Exports';
 import { Icon } from '../components/Icon';
+import { SuggestionList } from '../components/Suggestions';
 import { insert, remove, update } from '../data/ops';
 import { useChange } from '../data/useChange';
+import { useSuggestions } from '../data/useSuggestions';
 import {
   activeCategories, budgetStatus, bufferCategory, lockedTotal, paidForCategory, paidTotal, plannedTotal, rebalance,
   scaleTotal, snapshot, TOTAL_MAX, TOTAL_MIN, TOTAL_STEP, type Amounts,
@@ -12,6 +15,7 @@ import {
 import { fmtD, todayISO } from '../lib/dates';
 import { newId } from '../lib/ids';
 import { formatCOPNumber, fromDisplay, inputStep } from '../lib/money';
+import { isBudgetSuggestion } from '../lib/suggestions';
 import { useCurrency } from '../state/currency';
 import { useMoney } from '../state/money';
 import { useToast } from '../state/toast';
@@ -43,6 +47,7 @@ export function Budget() {
   const locked = lockedTotal(cats, events);
   const status = budgetStatus(total, plan);
   const perGuest = w.guest_target ? total / w.guest_target : 0;
+  const budgetSuggestions = useSuggestions().filter(isBudgetSuggestion);
 
   const refuse = (reason: 'lockedExceedTotal' | 'nothingUnlocked') => toast(t(`budget.refuse.${reason}`));
 
@@ -174,6 +179,11 @@ export function Budget() {
       </section>
 
       <Payments categories={act} />
+
+      <section className="card" aria-labelledby="bsH">
+        <h3 id="bsH" style={{ marginBottom: 12 }}>{t('suggest.budgetTitle')}</h3>
+        <SuggestionList list={budgetSuggestions} />
+      </section>
     </>
   );
 }
@@ -273,7 +283,10 @@ function Payments({ categories }: { categories: BudgetCategory[] }) {
 
   return (
     <section className="card" aria-labelledby="payH">
-      <div className="row between" style={{ marginBottom: 8 }}><h3 id="payH">{t('budget.payments')}</h3></div>
+      <div className="row between" style={{ marginBottom: 8 }}>
+        <h3 id="payH">{t('budget.payments')}</h3>
+        <ExportButton kind="ics" label={t('exports.calendarDue')} />
+      </div>
       <div style={{ marginTop: 8 }}>
         {list.length
           ? list.map((p) => <PaymentRow key={p.id} p={p} />)

@@ -50,7 +50,6 @@
     "guestsSub": "{{invited}} on the list · {{yes}} said yes",
     "guestsBar": "{{yes}} of {{target}} confirmed",
     "suggestions": "Suggestions",
-    "suggestionsSoon": "Suggestions based on your budget, dates and checklist show up here.",
     "upNext": "Up next",
     "fullChecklist": "Full checklist",
     "allCaughtUp": "All caught up.",
@@ -60,7 +59,10 @@
     "vision": "Our vision",
     "visionTitle": "A hacienda courtyard, soft lights, lots of flowers and color",
     "openBoard": "Open board",
-    "visionNote": "Ideas you both love show up here."
+    "visionNote": "Ideas you both love show up here.",
+    "showAll": "Show all {{count}}",
+    "showFewer": "Show fewer",
+    "nothingToFlag": "Nothing to flag right now."
   },
   "sections": {
     "checklist": {
@@ -520,5 +522,110 @@
     "openOriginal": "Open the original",
     "deleteLabel": "Delete {{title}}",
     "deleted": "Removed from the board."
+  },
+  "suggest": {
+    "dismiss": "Dismiss suggestion: {{title}}",
+    "dismissed": "Suggestion hidden.",
+    "budgetTitle": "Budget suggestions",
+    "openBudget": "Open budget",
+    "openChecklist": "Open checklist",
+    "openVendors": "Open vendors",
+    "addToNotes": "Add to notes",
+    "addTask": "Add task",
+    "taskAdded": "Added to your checklist.",
+    "noteAdded": "Added to Notes.",
+    "bufferRaised": "Buffer is now 7%. Other unlocked categories scaled down.",
+    "over": {
+      "title": "Your plan is {{amount}} over budget",
+      "body": "Rebalance scales the unlocked categories down to fit. Locked must-haves stay where they are."
+    },
+    "under": {
+      "title": "{{amount}} isn’t assigned to anything yet",
+      "body": "Add it to your buffer, or rebalance to spread it across unlocked categories."
+    },
+    "buffer": {
+      "title": "Your buffer is {{pct}}% of the budget",
+      "body": "Planners usually keep 5–10% aside for surprises such as exchange-rate swings, extra guests and tips. 7% would be {{amount}}.",
+      "action": "Raise buffer to 7%"
+    },
+    "locked": {
+      "title": "{{pct}}% of the budget is locked",
+      "body": "With this much locked, a lower budget squeezes everything else hard. Unlock a category or two if you need room to cut."
+    },
+    "pay": {
+      "due": "{{label}}: {{amount}} due {{date}}",
+      "wasDue": "{{label}}: {{amount}} was due {{date}}",
+      "body": "Mark it paid in Budget once it goes out, so the totals stay right."
+    },
+    "overdue": {
+      "title_one": "{{count}} task is past due",
+      "title_other": "{{count}} tasks are past due"
+    },
+    "date": {
+      "title": "Pick your exact date inside the Dec–Feb window",
+      "body": "Christmas through New Year is peak season in Cartagena, with the highest hotel and flight prices. Mid-January through February is still dry season and usually easier to book.",
+      "action": "Set the date"
+    },
+    "venue": {
+      "title": "Book the hacienda first",
+      "body": "The venue fixes your date, capacity and what catering is included. Aim to sign 12–15 months before the wedding."
+    },
+    "legal": {
+      "title": "Decide on a legal or symbolic ceremony",
+      "body": "A civil wedding in Colombia needs apostilled, translated documents filed ahead of time. Many couples marry legally at home and hold a symbolic ceremony in Cartagena.",
+      "note": "Legal ceremony in Colombia, or legal at home + symbolic in Cartagena?"
+    },
+    "flowers": {
+      "title": "Flowers go further in Colombia",
+      "body": "Colombia is one of the world’s largest flower exporters, so roses and carnations are good value. Heliconias, orchids and bougainvillea suit a hacienda courtyard."
+    },
+    "iva": {
+      "title": "Check that quotes include IVA",
+      "body": "Colombia charges 19% IVA (VAT) on many services. Ask each vendor to confirm “IVA incluido” so your numbers hold.",
+      "task": "Confirm every vendor quote includes IVA"
+    },
+    "sunset": {
+      "title": "Plan a late-afternoon ceremony",
+      "body": "Midday in Cartagena is hot. A ceremony around 4:30 pm lands in golden hour, and your soft lights take over after sunset, close to 6 pm."
+    },
+    "hora": {
+      "title": "Add a hora loca",
+      "body": "A Colombian wedding tradition: a late-night burst of live drums, brass, masks and props. Ask your music vendor if they offer it."
+    },
+    "perGuest": {
+      "title": "{{amount}} per guest at {{n}} guests",
+      "body": "At 30 guests that is {{at30}}, and at 50 it is {{at50}}. Catering and bar scale with headcount, so ask vendors for per-person quotes."
+    }
+  },
+  "exports": {
+    "title": "Export & backup",
+    "json": "Everything (JSON)",
+    "budgetCsv": "Budget (CSV)",
+    "ics": "Calendar (.ics)",
+    "todoist": "Checklist for Todoist",
+    "todoistShort": "Todoist CSV",
+    "calendarDue": "Add due dates to calendar",
+    "note": "Todoist: create a project, then choose Import from CSV. Calendar: import the .ics into Google Calendar or Apple Calendar; importing it again updates the same events.",
+    "backupNote": "Keep a copy of the JSON backup somewhere safe. It holds every row of your plan (photos are listed by name, not included).",
+    "downloaded": "{{file}} downloaded.",
+    "todoistSync": "Sync with Todoist",
+    "todoistSyncSoon": "Coming later: keep the checklist in sync with Todoist automatically.",
+    "calendarName": "Nick & Thuraya’s wedding",
+    "weddingEvent": "Nick & Thuraya’s wedding, Cartagena",
+    "weddingWhere": "Hacienda courtyard, Cartagena, Colombia",
+    "payEvent": "Pay: {{label}} ({{amount}})",
+    "payDesc": "Wedding payment",
+    "taskEvent": "Wedding: {{title}}",
+    "csv": {
+      "event": "Event",
+      "category": "Category",
+      "plannedUsd": "Planned USD",
+      "plannedCop": "Planned COP",
+      "paidUsd": "Paid USD",
+      "mustHave": "Must-have",
+      "yes": "Yes",
+      "no": "No",
+      "total": "Total budget"
+    }
   }
 }

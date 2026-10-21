@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Icon, TilesBackground } from '../components/Icon';
+import { SuggestionList } from '../components/Suggestions';
 import { useFileUrls } from '../data/queries';
+import { useSuggestions } from '../data/useSuggestions';
 import { paidTotal, plannedTotal } from '../lib/budget';
 import { daysBetween, fmtD, todayISO } from '../lib/dates';
 import { sum } from '../lib/sum';
@@ -17,6 +20,8 @@ export function Home() {
   const money = useMoney();
   const { wedding: w, tasks, payments, guests, ideas, idea_votes, members } = data;
   const today = todayISO();
+  const sg = useSuggestions();
+  const [showAll, setShowAll] = useState(false);
 
   const days = Math.max(0, daysBetween(today, w.wedding_date));
   const total = w.total_budget_usd;
@@ -83,9 +88,15 @@ export function Home() {
 
       <div className="grid g2">
         <section className="card" aria-labelledby="sgH">
-          <div className="row between" style={{ marginBottom: 14 }}><h3 id="sgH">{t('home.suggestions')}</h3></div>
-          {/* TODO(phase 6): src/lib/suggestions.ts */}
-          <p className="muted">{t('home.suggestionsSoon')}</p>
+          <div className="row between" style={{ marginBottom: 14 }}>
+            <h3 id="sgH">{t('home.suggestions')}</h3><span className="pill">{sg.length}</span>
+          </div>
+          <SuggestionList list={showAll ? sg : sg.slice(0, 4)} />
+          {sg.length > 4 && (
+            <button type="button" className="btn small ghost" style={{ marginTop: 8 }} aria-expanded={showAll} onClick={() => setShowAll((x) => !x)}>
+              {showAll ? t('home.showFewer') : t('home.showAll', { count: sg.length })}
+            </button>
+          )}
         </section>
         <div className="stack" style={{ gap: 16 }}>
           <section className="card" aria-labelledby="nxH">

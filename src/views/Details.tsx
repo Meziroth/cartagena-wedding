@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ViewOnlyBanner } from '../components/Controls';
+import { ExportButton } from '../components/Exports';
 import { update } from '../data/ops';
 import { useChange } from '../data/useChange';
 import { fmtD } from '../lib/dates';
@@ -113,6 +114,24 @@ export function Details() {
         <Members />
 
         <Notifications />
+
+        <section className="card stack" aria-labelledby="xH">
+          <h3 id="xH">{t('exports.title')}</h3>
+          <div className="row">
+            <ExportButton kind="json" />
+            <ExportButton kind="todoist" />
+            <ExportButton kind="ics" />
+            <ExportButton kind="budgetCsv" />
+          </div>
+          <p className="muted small">{t('exports.note')}</p>
+          <p className="muted small">{t('exports.backupNote')}</p>
+          {/* TODO(later): two-way Todoist sync. The personal API token would be stored encrypted and used only by an
+              Edge Function, never in the browser. */}
+          <div className="row">
+            <button type="button" className="btn small" disabled aria-describedby="todoistSoon">{t('exports.todoistSync')}</button>
+            <span id="todoistSoon" className="muted small">{t('exports.todoistSyncSoon')}</span>
+          </div>
+        </section>
 
         <section className="card stack" aria-labelledby="aH">
           <h3 id="aH">{t('details.account')}</h3>

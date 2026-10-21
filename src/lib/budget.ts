@@ -86,3 +86,18 @@ export function budgetStatus(total: number, planned: number): BudgetStatus {
 }
 
 export const bufferCategory = (cats: readonly BudgetCategory[]): BudgetCategory | undefined => cats.find((c) => c.is_buffer);
+
+/**
+ * "Raise buffer to 7%": the buffer becomes round10(total × pct) and stays put while the other unlocked
+ * categories scale to make room, as in the prototype. Returns the new amounts, buffer included.
+ */
+export function raiseBuffer(
+  total: number, cats: readonly BudgetCategory[], events: readonly WeddingEvent[], pct: number,
+): RebalanceResult {
+  const buffer = bufferCategory(cats);
+  if (!buffer) return { ok: false, reason: 'nothingUnlocked' };
+  const target = Math.round((total * pct) / 10) * 10;
+  const pinned = cats.map((c) => (c.id === buffer.id ? { ...c, amount_usd: target, is_locked: true } : c));
+  const r = rebalance(total, pinned, events);
+  return r.ok ? { ok: true, amounts: { ...r.amounts, [buffer.id]: target } } : r;
+}
