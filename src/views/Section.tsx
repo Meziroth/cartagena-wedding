@@ -8,6 +8,7 @@ import { fmtD } from '../lib/dates';
 import { sum } from '../lib/sum';
 import { useMoney } from '../state/money';
 import { useWedding } from '../state/wedding';
+import { Members } from './Members';
 
 type SectionId = Exclude<RouteId, 'home'>;
 
@@ -39,6 +40,7 @@ export function Section({ id }: { id: SectionId }) {
         </div>
       </div>
       <div className="empty">{t('sections.comingSoon', { summary: summary[id] })}</div>
+      {id === 'details' && <Members />}
     </>
   );
 }

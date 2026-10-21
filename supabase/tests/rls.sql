@@ -73,6 +73,7 @@ grant execute on all functions in schema rls_test to authenticated, anon;
 -- ─── Setup: Nick creates the wedding and invites Thuraya and the planner ───────────────────────
 
 select rls_test.act_as('nick');
+select rls_test.check(public.can_set_up_wedding(), 'before setup, a signed-in user is offered setup');
 select rls_test.check(public.setup_wedding('Nick') is not null, 'Nick can set up the wedding');
 
 do $$
@@ -234,6 +235,7 @@ begin
   perform rls_test.check(rls_test.affected($q$update public.tasks set title = 'x'$q$) = 0, 'stranger can''t edit tasks');
   perform rls_test.check(rls_test.affected($q$delete from public.weddings$q$) = 0, 'stranger can''t delete the wedding');
   perform rls_test.check(public.is_member((select id from public.weddings)) is not true, 'stranger is not a member');
+  perform rls_test.check(not public.can_set_up_wedding(), 'after setup, a stranger isn''t offered setup');
 end $$;
 
 reset role;
@@ -257,6 +259,7 @@ select rls_test.act_as_anon();
 select rls_test.refused($$select count(*) from public.weddings$$, 'anon can''t read weddings');
 select rls_test.refused($$select count(*) from public.tasks$$, 'anon can''t read tasks');
 select rls_test.refused($$select public.setup_wedding('x')$$, 'anon can''t set up a wedding');
+select rls_test.refused($$select public.can_set_up_wedding()$$, 'anon can''t ask whether a wedding exists');
 
 reset role;
 select 'All RLS checks passed' as result;

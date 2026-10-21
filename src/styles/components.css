@@ -19,7 +19,7 @@
 .pill.sage{color:var(--sage)} .pill.ochre{color:var(--ochre)} .pill.alert{color:var(--alert)} .pill.pink{color:var(--bougain)} .pill.terra{color:var(--terracotta)}
 .field{display:flex;flex-direction:column;gap:6px;min-width:0}
 .field label{font-size:.82rem;font-weight:600;color:var(--muted)}
-input[type=text],input[type=number],input[type=date],input[type=url],input[type=email],select,textarea{background:var(--sunk);border:1px solid transparent;border-radius:8px;padding:10px 12px;min-height:44px;width:100%;min-width:0}
+input[type=text],input[type=number],input[type=date],input[type=url],input[type=email],input[type=password],select,textarea{background:var(--sunk);border:1px solid transparent;border-radius:8px;padding:10px 12px;min-height:44px;width:100%;min-width:0}
 input:focus,select:focus,textarea:focus{border-color:var(--terracotta);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--terracotta) 25%,transparent)}
 fieldset{border:0;margin:0;padding:0;min-width:0}
 .formgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));align-items:end}

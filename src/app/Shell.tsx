@@ -7,6 +7,7 @@ import { dataSource } from '../data/source';
 import { setLang, type Lang } from '../i18n';
 import { fmtD } from '../lib/dates';
 import es from '../locales/es.json';
+import { useAuth } from '../state/auth';
 import { useCurrency } from '../state/currency';
 import { useToast } from '../state/toast';
 import { useWedding } from '../state/wedding';
@@ -37,6 +38,7 @@ function CurrencySwitch() {
 function AccountMenu() {
   const { t, i18n } = useTranslation();
   const { me } = useWedding();
+  const { signOut: endSession } = useAuth();
   const toast = useToast();
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
@@ -53,8 +55,8 @@ function AccountMenu() {
 
   const signOut = () => {
     setOpen(false);
-    // TODO(phase 3): supabase.auth.signOut()
     if (dataSource.kind === 'mock') toast(t('topbar.signOutMock'));
+    else void endSession();
   };
 
   return (

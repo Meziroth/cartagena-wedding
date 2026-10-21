@@ -1,7 +1,7 @@
-// Loads the signed-in member and the wedding dataset once, then exposes them to every screen.
+// Loads the wedding dataset for the signed-in member, then exposes both to every screen.
 import { createContext, useContext, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDataset, useMe } from '../data/queries';
+import { useDataset } from '../data/queries';
 import type { Dataset } from '../mock/mockData';
 import type { Member } from '../types';
 import { CurrencyProvider } from './currency';
@@ -9,25 +9,32 @@ import { CurrencyProvider } from './currency';
 interface WeddingCtx { data: Dataset; me: Member; isOwner: boolean }
 const Ctx = createContext<WeddingCtx | null>(null);
 
-export function WeddingProvider({ children }: { children: ReactNode }) {
+export function LoadError({ onSignOut }: { onSignOut?: () => void }) {
   const { t } = useTranslation();
-  const me = useMe();
-  const data = useDataset();
-
-  if (me.isError || data.isError) {
-    return (
-      <div className="boot" role="alert">
-        <p>{t('app.loadError')}</p>
-        <button type="button" className="btn primary" onClick={() => window.location.reload()}>{t('app.reload')}</button>
-      </div>
-    );
-  }
-  if (!me.data || !data.data) {
-    return <div className="boot" role="status" aria-live="polite"><p className="muted">{t('app.loading')}</p></div>;
-  }
   return (
-    <Ctx.Provider value={{ data: data.data, me: me.data, isOwner: me.data.role === 'owner' }}>
-      <CurrencyProvider userId={me.data.user_id}>{children}</CurrencyProvider>
+    <div className="boot" role="alert">
+      <p>{t('app.loadError')}</p>
+      <div className="auth-alt">
+        <button type="button" className="btn primary" onClick={() => window.location.reload()}>{t('app.reload')}</button>
+        {onSignOut && <button type="button" className="btn ghost" onClick={onSignOut}>{t('topbar.signOut')}</button>}
+      </div>
+    </div>
+  );
+}
+
+export function Loading() {
+  const { t } = useTranslation();
+  return <div className="boot" role="status" aria-live="polite"><p className="muted">{t('app.loading')}</p></div>;
+}
+
+export function WeddingProvider({ me, onSignOut, children }: { me: Member; onSignOut?: () => void; children: ReactNode }) {
+  const data = useDataset(me.wedding_id);
+
+  if (data.isError) return <LoadError onSignOut={onSignOut} />;
+  if (!data.data) return <Loading />;
+  return (
+    <Ctx.Provider value={{ data: data.data, me, isOwner: me.role === 'owner' }}>
+      <CurrencyProvider userId={me.user_id}>{children}</CurrencyProvider>
     </Ctx.Provider>
   );
 }

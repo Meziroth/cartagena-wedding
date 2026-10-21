@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { buildMockData } from '../mock/mockData';
+import { authErrorKey } from './authErrors';
 import { activeCategories, paidTotal, plannedTotal } from './budget';
 import { addDays, daysBetween, minusMonths } from './dates';
 import { formatMoney, fromDisplay, toDisplay } from './money';
@@ -62,5 +63,17 @@ describe('budget selectors', () => {
     const payments = d.payments.map((p) => ({ ...p, is_paid: true }));
     expect(paidTotal(payments, d.budget_categories, d.events)).toBe(1680);
     expect(paidTotal(d.payments, d.budget_categories, d.events)).toBe(0);
+  });
+});
+
+describe('auth errors', () => {
+  it('maps Supabase error codes to friendly messages', () => {
+    expect(authErrorKey({ code: 'invalid_credentials', status: 400 })).toBe('wrongPassword');
+    expect(authErrorKey({ code: 'otp_disabled', message: 'Signups not allowed for otp' })).toBe('notInvited');
+    expect(authErrorKey({ message: 'Signups not allowed for otp', status: 422 })).toBe('notInvited');
+    expect(authErrorKey({ details: { code: 'otp_expired' } })).toBe('linkExpired');
+    expect(authErrorKey({ name: 'AuthRetryableFetchError', status: 0 })).toBe('offline');
+    expect(authErrorKey({ status: 429 })).toBe('tooMany');
+    expect(authErrorKey(new Error('boom'))).toBe('generic');
   });
 });
