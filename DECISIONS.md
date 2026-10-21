@@ -106,3 +106,11 @@ Choices made without asking, per CLAUDE_CODE_PROMPT.md. Newest at the bottom.
 - **Browser tests** (`npm run e2e`, Playwright): every screen at 390×844 and 1280×800 must render, not scroll sideways, have no console errors, and pass axe (WCAG 2.0–2.2 A/AA) with no serious or critical issues; Home and Budget are also checked in the dark theme. Flows: budget chips, rebalance and slider; adding and ticking a task; moving the date; note tags; hearts; dismissing a suggestion; offline editing; the skip link. They run on the example data, so no Supabase account is needed. Locally they use the installed Edge; in CI, Playwright's Chromium.
 - **The Pages workflow** now runs lint, unit tests and the browser tests before building; a failure stops the deploy and keeps the test report for a week.
 - **Not covered by automated tests**: realtime between two signed-in people and push notifications on a real phone, which need real accounts. Check them by hand with two devices.
+
+## Phase 8: README
+
+- **The README is written for Nick and Thuraya, not developers**: using the planner (roles, signing in, the iPhone Home Screen app and notifications, offline, exports), setting it up from scratch in eight steps, and looking after it (backups, the free plan pausing, a troubleshooting table). A short developer section comes last.
+- **Free-plan pausing** follows Supabase's current docs (Project Pausing guide): paused after one week of inactivity, resumable from the dashboard for up to a year. That's longer than the 90 days in their 2024 changelog. The README says to check the docs, since this has changed before.
+- **A paused project is now visible in the app**: when the server can't be reached while online, a banner says so and that the screen shows this device's saved copy, instead of quietly showing old data.
+- **`npm run dev:mock`** runs on the example data (Vite mode `mock`), because `VITE_DATA_SOURCE=mock npm run dev` doesn't work in Windows PowerShell.
+- **Edge Function deploys use `--use-api`**, which builds on Supabase's side so Docker isn't needed.

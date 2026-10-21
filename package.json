@@ -12,7 +12,8 @@
     "lint": "eslint .",
     "e2e": "playwright test",
     "gen:seed": "vite-node supabase/gen/write.ts",
-    "gen:vapid": "node scripts/gen-vapid.mjs"
+    "gen:vapid": "node scripts/gen-vapid.mjs",
+    "dev:mock": "vite --mode mock"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.117.3",

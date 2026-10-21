@@ -1,11 +1,11 @@
-// The one Supabase client. Without VITE_SUPABASE_URL (or with VITE_DATA_SOURCE=mock) there is none,
+// The one Supabase client. Without VITE_SUPABASE_URL (or with VITE_DATA_SOURCE=mock, or `npm run dev:mock`) there is none,
 // and the app runs on the built-in example data instead.
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
 const url = import.meta.env.VITE_SUPABASE_URL;
 const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-export const USE_MOCK = import.meta.env.VITE_DATA_SOURCE === 'mock' || !url || !anonKey;
+export const USE_MOCK = import.meta.env.VITE_DATA_SOURCE === 'mock' || import.meta.env.MODE === 'mock' || !url || !anonKey;
 
 /**
  * What an emailed link was for, read before the client swaps the tokens in the URL for a session.

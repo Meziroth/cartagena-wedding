@@ -7,7 +7,11 @@ import type { Dataset } from '../mock/mockData';
 import type { Member } from '../types';
 import { CurrencyProvider } from './currency';
 
-interface WeddingCtx { data: Dataset; me: Member; isOwner: boolean }
+interface WeddingCtx {
+  data: Dataset; me: Member; isOwner: boolean;
+  /** The last refresh failed, so the screen shows this device's saved copy. */
+  refreshFailed: boolean;
+}
 const Ctx = createContext<WeddingCtx | null>(null);
 
 export function LoadError({ onSignOut }: { onSignOut?: () => void }) {
@@ -36,7 +40,7 @@ export function WeddingProvider({ me, onSignOut, children }: { me: Member; onSig
   if (data.isError && !data.data) return <LoadError onSignOut={onSignOut} />;
   if (!data.data) return <Loading />;
   return (
-    <Ctx.Provider value={{ data: data.data, me, isOwner: me.role === 'owner' }}>
+    <Ctx.Provider value={{ data: data.data, me, isOwner: me.role === 'owner', refreshFailed: data.isError }}>
       <CurrencyProvider userId={me.user_id}>{children}</CurrencyProvider>
     </Ctx.Provider>
   );
